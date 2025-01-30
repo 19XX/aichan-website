@@ -94,7 +94,35 @@
             font-weight: normal;
             font-style: normal;
         }
-        </style>
+        @media (max-width: 768px) {
+            body {
+                height: auto;
+                padding: 10px;
+            }
+            #content {
+                font-size: 1rem;
+                padding: 10px;
+            }
+            video {
+                width: 100%;
+                height: auto;
+            }
+            #chat-container {
+                width: 95%;
+                max-width: none;
+                font-size: 14px;
+                padding: 10px;
+            }
+            #chat-box {
+                height: 200px;
+                font-size: 12px;
+            }
+            #input-box {
+                font-size: 12px;
+                padding: 8px;
+            }
+        }
+    </style>
 </head>
 <body>
     <div id="loading">
