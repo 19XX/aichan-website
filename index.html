@@ -104,7 +104,7 @@
     
     <div id="content" class="fade-in">
         <h1>AIchan</h1>
-        <video width="640" height="480" autoplay loop muted style="mix-blend-mode: multiply; filter: brightness(1.5) contrast(1.2);">
+        <video width="640" height="480" autoplay loop muted style="mix-blend-mode: multiply; filter: brightness(1.5) contrast(1.2); display: block !important; visibility: visible !important; opacity: 1 !important;">
             <source src="AIchan_introduce_1.mp4" type="video/mp4">
             Your browser does not support the video tag.
         </video>
@@ -137,7 +137,8 @@
             setTimeout(() => {
                 document.getElementById('loading').style.display = 'none';
             }, 1000);
-            document.getElementById('content').style.display = 'block';
+            document.getElementById('content').style.display = 'flex';
+            document.getElementById('content').style.opacity = '1';
             document.getElementById('chat-container').style.display = 'block';
         }, 5000);
         
@@ -173,7 +174,11 @@
                 chatBox.scrollTop = chatBox.scrollHeight;
             }
         }
-    </script>
+    document.addEventListener("DOMContentLoaded", function() {
+        let video = document.querySelector("video");
+        video.play().catch(error => console.log("Autoplay prevented:", error));
+    });
+</script>
 </body>
 </html>
 
