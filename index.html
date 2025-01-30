@@ -229,7 +229,7 @@
                 inputBox.value = '';
                 chatBox.innerHTML += `<div style='padding: 5px; border-radius: 5px; background-color: rgba(0, 0, 0, 0.7); margin-bottom: 5px;'><strong>You:</strong> ${userMessage}</div>`;
                 
-                const response = await fetch('http://localhost:5000/api/chat', {
+                const response = await fetch('https://aichan-backend.onrender.com/api/chat', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ userMessage })
