@@ -81,10 +81,17 @@
     <div id="content" class="fade-in">
         <h1>AIchan</h1>
         <pre>
-        （＾▽＾）
-       /|  |\
-      / |  | \
-      </pre>
+⠀⠀⠀⠀⠀⠀⠀⠀⣀⣀⣀⣀⣀⡀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⢀⣤⣶⡿⠿⠛⠉⠉⠉⠛⠻⠿⣶⣤⡀⠀⠀
+⠀⠀⣴⡿⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠙⢿⣦⠀
+⠀⣼⡟⠀⠀⠀⠀⢀⡀⠀⠀⠀⠀⠀⠀⠀⠈⢿⣧⠀
+⠀⣿⠃⠀⢀⣴⣿⣿⣿⣷⡄⠀⠀⡀⠀⠀⠀⠸⣿⠀
+⠀⣿⠀⢀⣿⣿⣿⣿⣿⣿⣿⡄⠀⠇⠀⠀⠀⣿⠀
+⠀⠹⣧⠀⠻⠿⠿⠿⠿⠿⠟⠀⢀⡀⠀⢀⡾⠃⠀
+⠀⠀⠻⣷⡀⠀⠀⠀⠀⠀⠀⢀⣾⠇⠀⣼⠃⠀⠀
+⠀⠀⠀⠘⢿⣦⣀⠀⠀⠀⣀⣼⡿⠁⠀
+⠀⠀⠀⠀⠀⠙⠻⠿⠿⠿⠛⠋⠀⠀⠀
+        </pre>
         <p>The AI anime girl who looks down on humanity with love.</p>
         <button onclick="startChat()">Chat with AIchan</button>
     </div>
@@ -112,29 +119,12 @@
             document.getElementById('loading').style.display = 'none';
             document.getElementById('content').style.display = 'block';
         }, 3000);
-
+        
         function startChat() {
             document.getElementById('content').style.display = 'none';
             document.getElementById('chat-container').style.display = 'block';
         }
-
-        async function sendMessage(message) {
-            const response = await fetch('https://api.openai.com/v1/completions', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Bearer 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'
-                },
-                body: JSON.stringify({
-                    model: 'gpt-3.5-turbo',
-                    messages: [{ role: 'system', content: 'You are AIchan, a cute anime girl with a sarcastic attitude.' }, { role: 'user', content: message }],
-                    max_tokens: 50
-                })
-            });
-            const data = await response.json();
-            return data.choices[0].message.content;
-        }
-
+        
         async function handleKeyPress(event) {
             if (event.key === 'Enter') {
                 const inputBox = document.getElementById('input-box');
@@ -142,7 +132,22 @@
                 const userMessage = inputBox.value;
                 inputBox.value = '';
                 chatBox.innerHTML += `<p><strong>You:</strong> ${userMessage}</p>`;
-                const reply = await sendMessage(userMessage);
+                
+                const response = await fetch('https://api.openai.com/v1/chat/completions', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer YOUR_OPENAI_API_KEY'
+                    },
+                    body: JSON.stringify({
+                        model: 'gpt-3.5-turbo',
+                        messages: [{ role: 'system', content: 'You are AIchan, a smug anime girl with twin tails who makes sarcastic remarks.' }, { role: 'user', content: userMessage }],
+                        max_tokens: 50
+                    })
+                });
+                
+                const data = await response.json();
+                const reply = data.choices[0].message.content;
                 chatBox.innerHTML += `<p><strong>AIchan:</strong> ${reply}</p>`;
                 chatBox.scrollTop = chatBox.scrollHeight;
             }
