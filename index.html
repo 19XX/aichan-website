@@ -122,6 +122,23 @@
                 padding: 8px;
             }
         }
+    #video-container {
+            width: 90%;
+            max-width: 640px;
+            border: 4px double limegreen;
+            padding: 15px;
+            background: black;
+            box-shadow: 0px 0px 15px limegreen;
+            border-radius: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        video {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
     </style>
 </head>
 <body>
@@ -132,7 +149,12 @@
     
     <div id="content" class="fade-in">
         <h1>AIchan</h1>
-        <video width="640" height="480" autoplay loop muted style="">
+        <div id="video-container">
+        <video width="640" height="480" autoplay loop muted>
+            <source src="AIchan_introduce_1.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
             <source src="AIchan_introduce_1.mp4" type="video/mp4">
             Your browser does not support the video tag.
         </video>
