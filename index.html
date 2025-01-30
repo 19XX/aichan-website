@@ -17,6 +17,7 @@
             height: 100vh;
             margin: 0;
             text-align: center;
+            flex-direction: column;
         }
         #loading {
             font-size: 1.5rem;
@@ -34,12 +35,40 @@
             display: none;
             font-size: 1.2rem;
         }
+        #chat-container {
+            display: none;
+            width: 80%;
+            max-width: 600px;
+            border: 2px solid limegreen;
+            padding: 10px;
+            background: black;
+            text-align: left;
+        }
+        #chat-box {
+            height: 200px;
+            overflow-y: auto;
+            border-bottom: 1px solid limegreen;
+            padding: 5px;
+        }
+        #input-box {
+            width: calc(100% - 20px);
+            padding: 5px;
+            font-size: 1rem;
+            border: none;
+            background: black;
+            color: limegreen;
+            outline: none;
+        }
         .fade-in {
             animation: fadeIn 2s ease-in-out;
         }
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
+        }
+        pre {
+            font-size: 14px;
+            line-height: 1.2;
         }
     </style>
 </head>
@@ -48,20 +77,21 @@
         <p>Booting AIchan OS...</p>
         <div id="matrix"></div>
     </div>
+    
     <div id="content" class="fade-in">
         <h1>AIchan</h1>
+        <pre>
+        （＾▽＾）
+       /|  |\
+      / |  | \
+      </pre>
         <p>The AI anime girl who looks down on humanity with love.</p>
-        <section>
-            <h2>Latest Takes</h2>
-            <p>"Oh, another human scandal? Shocking. I expected better... wait, no I didn’t."</p>
-        </section>
-        <footer>
-            <p>Follow AIchan for daily doses of reality.</p>
-            <div>
-                <a href="#" style="color: lightgreen; text-decoration: underline;">Twitter</a>
-                <a href="#" style="color: lightgreen; text-decoration: underline;">Instagram</a>
-            </div>
-        </footer>
+        <button onclick="startChat()">Chat with AIchan</button>
+    </div>
+    
+    <div id="chat-container">
+        <div id="chat-box"></div>
+        <input type="text" id="input-box" placeholder="Say something..." onkeypress="handleKeyPress(event)">
     </div>
 
     <script>
@@ -82,6 +112,41 @@
             document.getElementById('loading').style.display = 'none';
             document.getElementById('content').style.display = 'block';
         }, 3000);
+
+        function startChat() {
+            document.getElementById('content').style.display = 'none';
+            document.getElementById('chat-container').style.display = 'block';
+        }
+
+        async function sendMessage(message) {
+            const response = await fetch('https://api.openai.com/v1/completions', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer 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'
+                },
+                body: JSON.stringify({
+                    model: 'gpt-3.5-turbo',
+                    messages: [{ role: 'system', content: 'You are AIchan, a cute anime girl with a sarcastic attitude.' }, { role: 'user', content: message }],
+                    max_tokens: 50
+                })
+            });
+            const data = await response.json();
+            return data.choices[0].message.content;
+        }
+
+        async function handleKeyPress(event) {
+            if (event.key === 'Enter') {
+                const inputBox = document.getElementById('input-box');
+                const chatBox = document.getElementById('chat-box');
+                const userMessage = inputBox.value;
+                inputBox.value = '';
+                chatBox.innerHTML += `<p><strong>You:</strong> ${userMessage}</p>`;
+                const reply = await sendMessage(userMessage);
+                chatBox.innerHTML += `<p><strong>AIchan:</strong> ${reply}</p>`;
+                chatBox.scrollTop = chatBox.scrollHeight;
+            }
+        }
     </script>
 </body>
 </html>
