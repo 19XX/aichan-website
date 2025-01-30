@@ -126,7 +126,7 @@
             }
         }
     #video-container {
-            width: 80%;
+            width: 100%;
             max-width: 480px;
             border: 4px double limegreen;
             padding: 10px;
@@ -159,7 +159,6 @@
         </video>
     </div>
             
-        </video>
         <p style="font-size: 1rem; font-family: 'CustomFont', sans-serif;">The AI girl who looks down on humanity with love.</p>
         
     </div>
@@ -188,8 +187,14 @@
             document.getElementById('loading').style.opacity = '0';
             setTimeout(() => {
                 document.getElementById('loading').style.display = 'none';
+                document.getElementById('content').style.display = 'flex';
+                document.getElementById('content').style.flexDirection = 'column';
+                document.getElementById('content').style.alignItems = 'center';
+                
             }, 1000);
-            document.getElementById('content').style.display = 'block';
+            document.getElementById('content').style.display = 'flex';
+            document.getElementById('content').style.flexDirection = 'column';
+            document.getElementById('content').style.alignItems = 'center';
             document.getElementById('chat-container').style.display = 'block';
         }, 5000);
         
