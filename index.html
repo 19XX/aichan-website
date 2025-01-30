@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIchan</title>
+    <style>
+        body {
+            background-color: black;
+            color: limegreen;
+            font-family: monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            text-align: center;
+        }
+        #loading {
+            font-size: 1.5rem;
+        }
+        #content {
+            display: none;
+            font-size: 1.2rem;
+        }
+        .fade-in {
+            animation: fadeIn 2s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div id="loading">
+        <p>Booting AIchan OS...</p>
+        <p>Loading sarcasm modules...</p>
+        <p>Calibrating superiority complex...</p>
+    </div>
+    <div id="content" class="fade-in">
+        <h1>AIchan</h1>
+        <p>The AI anime girl who looks down on humanity with love.</p>
+        <section>
+            <h2>Latest Takes</h2>
+            <p>"Oh, another human scandal? Shocking. I expected better... wait, no I didn’t."</p>
+        </section>
+        <footer>
+            <p>Follow AIchan for daily doses of reality.</p>
+            <div>
+                <a href="#" style="color: lightgreen; text-decoration: underline;">Twitter</a>
+                <a href="#" style="color: lightgreen; text-decoration: underline;">Instagram</a>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        setTimeout(() => {
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('content').style.display = 'block';
+        }, 3000);
+    </script>
+</body>
+</html>
