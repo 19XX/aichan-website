@@ -239,7 +239,7 @@
                 
                 const data = await response.json();
                 const reply = data.reply;
-                chatBox.innerHTML += `<div style='padding: 5px; border-radius: 5px; background-color: rgba(0, 100, 0, 0.7); margin-bottom: 5px;'><strong>AIchan:</strong> ${reply}</div>`;
+                chatBox.innerHTML += `<div style='padding: 5px; border-radius: 5px; background-color: rgba(0, 100, 0, 0.7); text-shadow: 0px 0px 3px limegreen; margin-bottom: 5px;'><strong>AIchan:</strong> ${reply}</div>`;
                 chatBox.scrollTop = chatBox.scrollHeight;
             }
         }
