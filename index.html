@@ -229,21 +229,16 @@
                 inputBox.value = '';
                 chatBox.innerHTML += `<div style='padding: 5px; border-radius: 5px; background-color: rgba(0, 0, 0, 0.7); margin-bottom: 5px;'><strong>You:</strong> ${userMessage}</div>`;
                 
-                const response = await fetch('https://api.openai.com/v1/chat/completions', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': 'Bearer YOUR_OPENAI_API_KEY'
-                    },
-                    body: JSON.stringify({
-                        model: 'gpt-4o',
-                        messages: [{ role: 'system', content: 'You are AIchan, a tsundere anime girl. You pretend not to care about humans but secretly do. Your replies are blunt, teasing, but sometimes sweet.' }, { role: 'user', content: userMessage }],
-                        max_tokens: 50
-                    })
-                });
+                const response = await fetch('http://localhost:5000/api/chat', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ userMessage })
+});
+
+
                 
                 const data = await response.json();
-                const reply = data.choices[0].message.content;
+                const reply = data.reply;
                 chatBox.innerHTML += `<div style='padding: 5px; border-radius: 5px; background-color: rgba(0, 100, 0, 0.7); margin-bottom: 5px;'><strong>AIchan:</strong> ${reply}</div>`;
                 chatBox.scrollTop = chatBox.scrollHeight;
             }
