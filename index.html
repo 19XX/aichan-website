@@ -24,6 +24,12 @@
             font-size: 1.5rem;
             overflow: hidden;
             text-shadow: 0px 0px 10px limegreen;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            width: 100%;
         }
         #matrix {
             font-size: 1rem;
@@ -146,7 +152,7 @@
 </head>
 <body>
     <div id="loading">
-        <p>Booting AIchan OS...</p>
+        <p style="white-space: nowrap;">Booting AIchan OS...</p>
         <div id="matrix"></div>
     </div>
     
