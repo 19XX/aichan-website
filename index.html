@@ -104,9 +104,12 @@
                 padding: 10px;
             }
             video {
-                width: 100%;
-                height: auto;
-            }
+            width: 100%;
+            max-width: 640px;
+            height: auto;
+            border-radius: 8px;
+            display: block;
+        }
             #chat-container {
                 width: 95%;
                 max-width: none;
@@ -126,13 +129,14 @@
             width: 90%;
             max-width: 640px;
             border: 4px double limegreen;
-            padding: 15px;
+            padding: 10px;
             background: black;
             box-shadow: 0px 0px 15px limegreen;
             border-radius: 12px;
             display: flex;
             justify-content: center;
             align-items: center;
+            margin: 0 auto;
         }
         video {
             width: 100%;
@@ -150,9 +154,8 @@
     <div id="content" class="fade-in">
         <h1>AIchan</h1>
         <div id="video-container">
-        <video width="640" height="480" autoplay loop muted>
+        <video autoplay loop muted>
             <source src="AIchan_introduce_1.mp4" type="video/mp4">
-            Your browser does not support the video tag.
         </video>
     </div>
             <source src="AIchan_introduce_1.mp4" type="video/mp4">
