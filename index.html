@@ -18,10 +18,12 @@
             margin: 0;
             text-align: center;
             flex-direction: column;
+            text-shadow: 0px 0px 8px limegreen;
         }
         #loading {
             font-size: 1.5rem;
             overflow: hidden;
+            text-shadow: 0px 0px 10px limegreen;
         }
         #matrix {
             font-size: 1rem;
@@ -34,30 +36,41 @@
         #content {
             display: none;
             font-size: 1.2rem;
+            text-shadow: 0px 0px 10px limegreen;
         }
         #chat-container {
             display: none;
-            width: 80%;
+            width: 90%;
             max-width: 600px;
-            border: 2px solid limegreen;
-            padding: 10px;
+            border: 4px double limegreen;
+            padding: 15px;
             background: black;
             text-align: left;
+            box-shadow: 0px 0px 15px limegreen;
+            font-size: 16px;
+            border-radius: 8px;
         }
         #chat-box {
-            height: 200px;
+            height: 250px;
             overflow-y: auto;
-            border-bottom: 1px solid limegreen;
-            padding: 5px;
+            border-bottom: 2px solid limegreen;
+            padding: 10px;
+            background-color: rgba(0, 0, 0, 0.8);
+            font-family: 'Press Start 2P', cursive;
+            color: limegreen;
+            text-shadow: 0px 0px 5px limegreen;
         }
         #input-box {
             width: calc(100% - 20px);
-            padding: 5px;
-            font-size: 1rem;
-            border: none;
+            padding: 10px;
+            font-size: 14px;
+            border: 2px solid limegreen;
             background: black;
             color: limegreen;
             outline: none;
+            font-family: 'Press Start 2P', cursive;
+            border-radius: 5px;
+            text-shadow: 0px 0px 5px limegreen;
         }
         .fade-in {
             animation: fadeIn 2s ease-in-out;
@@ -124,7 +137,7 @@
                 const chatBox = document.getElementById('chat-box');
                 const userMessage = inputBox.value;
                 inputBox.value = '';
-                chatBox.innerHTML += `<p><strong>You:</strong> ${userMessage}</p>`;
+                chatBox.innerHTML += `<div style='padding: 5px; border-radius: 5px; background-color: rgba(0, 0, 0, 0.7); margin-bottom: 5px;'><strong>You:</strong> ${userMessage}</div>`;
                 
                 const response = await fetch('https://api.openai.com/v1/chat/completions', {
                     method: 'POST',
@@ -141,7 +154,7 @@
                 
                 const data = await response.json();
                 const reply = data.choices[0].message.content;
-                chatBox.innerHTML += `<p><strong>AIchan:</strong> ${reply}</p>`;
+                chatBox.innerHTML += `<div style='padding: 5px; border-radius: 5px; background-color: rgba(0, 100, 0, 0.7); margin-bottom: 5px;'><strong>AIchan:</strong> ${reply}</div>`;
                 chatBox.scrollTop = chatBox.scrollHeight;
             }
         }
