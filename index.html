@@ -87,10 +87,35 @@
             box-shadow: inset 0px 0px 5px limegreen;
         }
         .fade-in {
-            animation: fadeIn 2s ease-in-out;
+            animation: glitchEffect 2s infinite;
         }
-        @keyframes fadeIn {
-            from { opacity: 0; }
+        @keyframes glitchEffect {
+            0% {
+                opacity: 0.8;
+                transform: translate(0, 0);
+                clip-path: inset(0% 0% 0% 0%);
+            }
+            25% {
+                opacity: 1;
+                transform: translate(-2px, 2px);
+                clip-path: inset(10% 0% 20% 0%);
+            }
+            50% {
+                opacity: 0.9;
+                transform: translate(2px, -2px);
+                clip-path: inset(0% 10% 0% 20%);
+            }
+            75% {
+                opacity: 1;
+                transform: translate(-2px, -2px);
+                clip-path: inset(20% 10% 10% 10%);
+            }
+            100% {
+                opacity: 1;
+                transform: translate(0, 0);
+                clip-path: inset(0% 0% 0% 0%);
+            }
+        }
             to { opacity: 1; }
         }
         pre {
