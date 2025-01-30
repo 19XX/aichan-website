@@ -94,7 +94,20 @@
             font-weight: normal;
             font-style: normal;
         }
-        </style>
+        #video-container {
+            position: relative;
+            width: 640px;
+            height: 480px;
+            background-color: rgba(50, 50, 50, 0.5); /* Prevent full transparency */
+            mix-blend-mode: multiply;
+            overflow: hidden;
+        }
+        video {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+    </style>
 </head>
 <body>
     <div id="loading">
@@ -104,7 +117,12 @@
     
     <div id="content" class="fade-in">
         <h1>AIchan</h1>
-        <video width="640" height="480" autoplay loop muted style="mix-blend-mode: multiply; filter: brightness(1.5) contrast(1.2);">
+        <div id="video-container">
+        <video width="640" height="480" autoplay loop muted>
+            <source src="AIchan_introduce_1.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
             <source src="AIchan_introduce_1.mp4" type="video/mp4">
             Your browser does not support the video tag.
         </video>
