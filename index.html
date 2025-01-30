@@ -80,20 +80,12 @@
     
     <div id="content" class="fade-in">
         <h1>AIchan</h1>
-        <pre>
-⠀⠀⠀⠀⠀⠀⠀⠀⣀⣀⣀⣀⣀⡀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⢀⣤⣶⡿⠿⠛⠉⠉⠉⠛⠻⠿⣶⣤⡀⠀⠀
-⠀⠀⣴⡿⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠙⢿⣦⠀
-⠀⣼⡟⠀⠀⠀⠀⢀⡀⠀⠀⠀⠀⠀⠀⠀⠈⢿⣧⠀
-⠀⣿⠃⠀⢀⣴⣿⣿⣿⣷⡄⠀⠀⡀⠀⠀⠀⠸⣿⠀
-⠀⣿⠀⢀⣿⣿⣿⣿⣿⣿⣿⡄⠀⠇⠀⠀⠀⣿⠀
-⠀⠹⣧⠀⠻⠿⠿⠿⠿⠿⠟⠀⢀⡀⠀⢀⡾⠃⠀
-⠀⠀⠻⣷⡀⠀⠀⠀⠀⠀⠀⢀⣾⠇⠀⣼⠃⠀⠀
-⠀⠀⠀⠘⢿⣦⣀⠀⠀⠀⣀⣼⡿⠁⠀
-⠀⠀⠀⠀⠀⠙⠻⠿⠿⠿⠛⠋⠀⠀⠀
-        </pre>
+        <video width="320" height="240" autoplay loop muted>
+            <source src="path/to/your/video.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
         <p>The AI anime girl who looks down on humanity with love.</p>
-        <button onclick="startChat()">Chat with AIchan</button>
+        
     </div>
     
     <div id="chat-container">
@@ -118,7 +110,8 @@
         setTimeout(() => {
             document.getElementById('loading').style.display = 'none';
             document.getElementById('content').style.display = 'block';
-        }, 3000);
+            document.getElementById('chat-container').style.display = 'block';
+        }, 5000);
         
         function startChat() {
             document.getElementById('content').style.display = 'none';
