@@ -24,16 +24,6 @@
             font-size: 1.5rem;
             overflow: hidden;
             text-shadow: 0px 0px 10px limegreen;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            text-align: center;
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
         }
         #matrix {
             font-size: 1rem;
@@ -115,9 +105,10 @@
             }
             video {
             width: 100%;
-            max-width: 360px;
+            max-width: 480px;
             height: auto;
             border-radius: 8px;
+            display: block;
         }
             #chat-container {
                 width: 95%;
@@ -135,8 +126,8 @@
             }
         }
     #video-container {
-            width: 80%;
-            max-width: 360px;
+            width: 100%;
+            max-width: 480px;
             border: 4px double limegreen;
             padding: 10px;
             background: black;
@@ -156,14 +147,14 @@
 </head>
 <body>
     <div id="loading">
-        <p style="white-space: nowrap;">Booting AIchan OS...</p>
+        <p>Booting AIchan OS...</p>
         <div id="matrix"></div>
     </div>
     
     <div id="content" class="fade-in">
         <h1 style="text-shadow: 0px 0px 5px limegreen; font-size: 2rem;">AIchan</h1>
         <div id="video-container">
-        <video autoplay loop muted playsinline>
+        <video autoplay loop muted>
             <source src="AIchan_introduce_1.mp4" type="video/mp4">
         </video>
     </div>
@@ -196,16 +187,6 @@
             document.getElementById('loading').style.opacity = '0';
             setTimeout(() => {
                 document.getElementById('loading').style.display = 'none';
-                document.getElementById('content').style.display = 'flex';
-                document.getElementById('content').style.flexDirection = 'column';
-                document.getElementById('content').style.alignItems = 'center';
-                
-                // Force video to play on Safari
-                let video = document.querySelector("video");
-                setTimeout(() => {
-                    video.play().catch(error => console.log("Autoplay blocked:", error));
-                }, 500);
-            }, 1000);
                 document.getElementById('content').style.display = 'flex';
                 document.getElementById('content').style.flexDirection = 'column';
                 document.getElementById('content').style.alignItems = 'center';
