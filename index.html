@@ -69,7 +69,7 @@
             background-color: rgba(0, 0, 0, 0.8);
             font-family: 'Press Start 2P', cursive;
             color: limegreen;
-            text-shadow: 0px 0px 5px limegreen;
+            text-shadow: 0px 0px 3px limegreen;
             border-radius: 10px;
             box-shadow: inset 0px 0px 10px limegreen;
         }
@@ -83,7 +83,7 @@
             outline: none;
             font-family: 'Press Start 2P', cursive;
             border-radius: 5px;
-            text-shadow: 0px 0px 5px limegreen;
+            text-shadow: 0px 0px 2px limegreen;
             box-shadow: inset 0px 0px 5px limegreen;
         }
         .fade-in {
@@ -111,9 +111,6 @@
                 left: 50%;
                 transform: translate(-50%, -50%);
             }
-            #loading {
-                font-size: 1.2rem;
-            }
             body {
                 height: auto;
                 padding: 10px;
@@ -137,29 +134,12 @@
             #chat-box {
                 height: 200px;
                 font-size: 12px;
+                text-shadow: 0px 0px 2px limegreen;
             }
             #input-box {
                 font-size: 12px;
                 padding: 8px;
             }
-        }
-    #video-container {
-            width: 90%;
-            max-width: 360px;
-            border: 4px double limegreen;
-            padding: 10px;
-            background: black;
-            box-shadow: 0px 0px 15px limegreen;
-            border-radius: 12px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin: 0 auto;
-        }
-        video {
-            width: 100%;
-            height: auto;
-            border-radius: 8px;
         }
     </style>
 </head>
@@ -185,66 +165,5 @@
         <div id="chat-box"></div>
         <input type="text" id="input-box" placeholder="Say something..." onkeypress="handleKeyPress(event)">
     </div>
-
-    <script>
-        const matrixDiv = document.getElementById('matrix');
-        const emojis = ['ツ', 'シ', 'ッ', 'ミ', 'ハ', 'モ', 'イ', 'ソ', 'ル', 'ク', 'メ', 'レ', 'ナ', 'ホ', 'カ', 'マ', 'タ'];
-        
-        function addMatrixLine() {
-            const line = Array.from({ length: 20 }, () => emojis[Math.floor(Math.random() * emojis.length)]).join(' ');
-            matrixDiv.innerHTML += line + '<br>';
-            if (matrixDiv.childElementCount > 8) {
-                matrixDiv.innerHTML = matrixDiv.innerHTML.split('<br>').slice(1).join('<br>');
-            }
-        }
-        
-        setInterval(addMatrixLine, 200);
-        
-        setTimeout(() => {
-            document.getElementById('loading').style.transition = 'opacity 1s ease-in-out';
-            document.getElementById('loading').style.opacity = '0';
-            setTimeout(() => {
-                document.getElementById('loading').style.display = 'none';
-                document.getElementById('content').style.display = 'flex';
-                document.getElementById('content').style.flexDirection = 'column';
-                document.getElementById('content').style.alignItems = 'center';
-                
-            }, 1000);
-            document.getElementById('content').style.display = 'flex';
-            document.getElementById('content').style.flexDirection = 'column';
-            document.getElementById('content').style.alignItems = 'center';
-            document.getElementById('chat-container').style.display = 'block';
-        }, 5000);
-        
-        function startChat() {
-            document.getElementById('content').style.display = 'none';
-            document.getElementById('chat-container').style.display = 'block';
-        }
-        
-        async function handleKeyPress(event) {
-            if (event.key === 'Enter') {
-                const inputBox = document.getElementById('input-box');
-                const chatBox = document.getElementById('chat-box');
-                const userMessage = inputBox.value;
-                inputBox.value = '';
-                chatBox.innerHTML += `<div style='padding: 5px; border-radius: 5px; background-color: rgba(0, 0, 0, 0.7); margin-bottom: 5px;'><strong>You:</strong> ${userMessage}</div>`;
-                
-                const response = await fetch('https://aichan-backend.onrender.com/api/chat', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ userMessage })
-});
-
-
-                
-                const data = await response.json();
-                const reply = data.reply;
-                chatBox.innerHTML += `<div style='padding: 5px; border-radius: 5px; background-color: rgba(0, 100, 0, 0.7); text-shadow: 0px 0px 3px limegreen; margin-bottom: 5px;'><strong>AIchan:</strong> ${reply}</div>`;
-                chatBox.scrollTop = chatBox.scrollHeight;
-            }
-        }
-    </script>
 </body>
 </html>
-
-    
