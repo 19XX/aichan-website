@@ -97,7 +97,7 @@
             font-size: 14px;
             line-height: 1.2;
         }
-    @font-face {
+        @font-face {
             font-family: 'CustomFont';
             src: url('MonsterFriendFore.woff2') format('woff2'),
                  url('MonsterFriendFore.woff') format('woff');
@@ -120,11 +120,11 @@
                 padding: 10px;
             }
             video {
-            width: 100%;
-            max-width: 360px;
-            height: auto;
-            border-radius: 8px;
-        }
+                width: 100%;
+                max-width: 360px;
+                height: auto;
+                border-radius: 8px;
+            }
             #chat-container {
                 width: 95%;
                 max-width: none;
@@ -152,18 +152,28 @@
     <div id="content" class="fade-in">
         <h1 style="text-shadow: 0px 0px 5px limegreen; font-size: 2rem;">AIchan</h1>
         <div id="video-container">
-        <video autoplay loop muted playsinline>
-            <source src="AIchan_introduce_1.mp4" type="video/mp4">
-        </video>
-    </div>
-            
-        <p style="font-size: 1rem; font-family: 'CustomFont', sans-serif;">The AI girl who looks down on humanity with love.</p>
+            <video autoplay loop muted playsinline>
+                <source src="AIchan_introduce_1.mp4" type="video/mp4">
+            </video>
+        </div>
         
+        <p style="font-size: 1rem; font-family: 'CustomFont', sans-serif;">The AI girl who looks down on humanity with love.</p>
     </div>
     
     <div id="chat-container">
         <div id="chat-box"></div>
-        <input type="text" id="input-box" placeholder="Say something..." onkeypress="handleKeyPress(event)">
+        <input type="text" id="input-box" placeholder="Say something...">
     </div>
+    
+    <script>
+        setTimeout(() => {
+            document.getElementById('loading').style.opacity = '0';
+            setTimeout(() => {
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('content').style.display = 'flex';
+                document.getElementById('chat-container').style.display = 'block';
+            }, 1000);
+        }, 5000);
+    </script>
 </body>
 </html>
