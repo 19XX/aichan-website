@@ -87,6 +87,47 @@
             height: auto;
             border-radius: 8px;
         }
+
+        #chat-container {
+            display: none;
+            width: 90%;
+            max-width: 600px;
+            border: 4px double limegreen;
+            padding: 15px;
+            background: black;
+            text-align: left;
+            box-shadow: 0px 0px 15px limegreen;
+            font-size: 16px;
+            border-radius: 12px;
+            margin-top: 20px;
+        }
+
+        #chat-box {
+            height: 250px;
+            overflow-y: auto;
+            border-bottom: 2px solid limegreen;
+            padding: 10px;
+            background-color: rgba(0, 0, 0, 0.8);
+            font-family: 'Press Start 2P', cursive;
+            color: limegreen;
+            text-shadow: 0px 0px 5px limegreen;
+            border-radius: 10px;
+            box-shadow: inset 0px 0px 10px limegreen;
+        }
+
+        #input-box {
+            width: calc(100% - 20px);
+            padding: 10px;
+            font-size: 14px;
+            border: 2px solid limegreen;
+            background: black;
+            color: limegreen;
+            outline: none;
+            font-family: 'Press Start 2P', cursive;
+            border-radius: 5px;
+            text-shadow: 0px 0px 5px limegreen;
+            box-shadow: inset 0px 0px 5px limegreen;
+        }
     </style>
 </head>
 <body>
@@ -106,7 +147,6 @@
     </div>
         
         <p style="font-size: 1rem; font-family: 'CustomFont', sans-serif;">The AI girl who looks down on humanity with love.</p>
-        
     </div>
     
     <div id="chat-container">
@@ -138,6 +178,7 @@
             setTimeout(() => {
                 document.getElementById('loading').style.display = 'none';
                 document.getElementById('content').style.display = 'flex';
+                document.getElementById('chat-container').style.display = 'block';
             }, 1000);
         }, 5000);
     </script>
