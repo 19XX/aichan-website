@@ -7,6 +7,14 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
         
+        @font-face {
+            font-family: 'CustomFont';
+            src: url('MonsterFriendFore.woff2') format('woff2'),
+                 url('MonsterFriendFore.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+        
         body {
             background-color: black;
             color: limegreen;
@@ -19,22 +27,49 @@
             text-align: center;
             flex-direction: column;
             text-shadow: 0px 0px 8px limegreen;
-        }
-        #loading {
-            font-size: 1.5rem;
             overflow: hidden;
-            text-shadow: 0px 0px 10px limegreen;
-            text-align: center;
+            position: relative;
+        }
+
+        .falling-text {
+            position: absolute;
+            top: -50px;
+            font-size: 1.2rem;
+            opacity: 0.8;
+            animation: fall linear infinite;
+            color: limegreen;
+            text-shadow: 0px 0px 5px limegreen;
+        }
+
+        @keyframes fall {
+            from {
+                transform: translateY(-50px);
+                opacity: 1;
+            }
+            to {
+                transform: translateY(100vh);
+                opacity: 0;
+            }
+        }
+
+        #falling-text-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            pointer-events: none;
+        }
+
+        #loading {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            width: 100%;
+            font-size: 1.5rem;
+            text-shadow: 0px 0px 10px limegreen;
         }
+
         #matrix {
             font-size: 1rem;
             white-space: pre-wrap;
@@ -42,12 +77,36 @@
             margin-top: 10px;
             height: 100px;
             overflow: hidden;
+            color: limegreen;
+            text-shadow: 0px 0px 5px limegreen;
         }
+
         #content {
             display: none;
-            font-size: 1.2rem;
-            text-shadow: 0px 0px 10px limegreen;
+            flex-direction: column;
+            align-items: center;
         }
+
+        #video-container {
+            width: 90%;
+            max-width: 360px;
+            border: 4px double limegreen;
+            padding: 10px;
+            background: black;
+            box-shadow: 0px 0px 15px limegreen;
+            border-radius: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto;
+        }
+
+        video {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+
         #chat-container {
             display: none;
             width: 90%;
@@ -59,8 +118,9 @@
             box-shadow: 0px 0px 15px limegreen;
             font-size: 16px;
             border-radius: 12px;
-            padding: 15px;
+            margin-top: 20px;
         }
+
         #chat-box {
             height: 250px;
             overflow-y: auto;
@@ -69,10 +129,11 @@
             background-color: rgba(0, 0, 0, 0.8);
             font-family: 'Press Start 2P', cursive;
             color: limegreen;
-            text-shadow: 0px 0px 3px limegreen;
+            text-shadow: 0px 0px 5px limegreen;
             border-radius: 10px;
             box-shadow: inset 0px 0px 10px limegreen;
         }
+
         #input-box {
             width: calc(100% - 20px);
             padding: 10px;
@@ -83,67 +144,14 @@
             outline: none;
             font-family: 'Press Start 2P', cursive;
             border-radius: 5px;
-            text-shadow: 0px 0px 2px limegreen;
+            text-shadow: 0px 0px 5px limegreen;
             box-shadow: inset 0px 0px 5px limegreen;
-        }
-        .fade-in {
-            animation: fadeIn 2s ease-in-out;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        pre {
-            font-size: 14px;
-            line-height: 1.2;
-        }
-        @font-face {
-            font-family: 'CustomFont';
-            src: url('MonsterFriendFore.woff2') format('woff2'),
-                 url('MonsterFriendFore.woff') format('woff');
-            font-weight: normal;
-            font-style: normal;
-        }
-        @media (max-width: 768px) {
-            #loading {
-                font-size: 1.2rem;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-            }
-            body {
-                height: auto;
-                padding: 10px;
-            }
-            #content {
-                font-size: 1rem;
-                padding: 10px;
-            }
-            video {
-                width: 100%;
-                max-width: 360px;
-                height: auto;
-                border-radius: 8px;
-            }
-            #chat-container {
-                width: 95%;
-                max-width: none;
-                font-size: 14px;
-                padding: 10px;
-            }
-            #chat-box {
-                height: 200px;
-                font-size: 12px;
-                text-shadow: 0px 0px 2px limegreen;
-            }
-            #input-box {
-                font-size: 12px;
-                padding: 8px;
-            }
         }
     </style>
 </head>
 <body>
+    <div id="falling-text-container"></div>
+    
     <div id="loading">
         <p>Booting AIchan OS...</p>
         <div id="matrix"></div>
@@ -152,28 +160,25 @@
     <div id="content" class="fade-in">
         <h1 style="text-shadow: 0px 0px 5px limegreen; font-size: 2rem;">AIchan</h1>
         <div id="video-container">
-            <video autoplay loop muted playsinline>
-                <source src="AIchan_introduce_1.mp4" type="video/mp4">
-            </video>
-        </div>
+        <video autoplay loop muted playsinline>
+            <source src="AIchan_introduce_1.mp4" type="video/mp4">
+        </video>
+    </div>
         
         <p style="font-size: 1rem; font-family: 'CustomFont', sans-serif;">The AI girl who looks down on humanity with love.</p>
     </div>
-    
+
     <div id="chat-container">
         <div id="chat-box"></div>
-        <input type="text" id="input-box" placeholder="Say something...">
+        <input type="text" id="input-box" placeholder="Say something..." onkeypress="handleKeyPress(event)">
     </div>
-    
+
     <script>
-        setTimeout(() => {
-            document.getElementById('loading').style.opacity = '0';
-            setTimeout(() => {
-                document.getElementById('loading').style.display = 'none';
-                document.getElementById('content').style.display = 'flex';
-                document.getElementById('chat-container').style.display = 'block';
-            }, 1000);
-        }, 5000);
+        document.getElementById("input-box").addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                handleKeyPress(event);
+            }
+        });
     </script>
 </body>
 </html>
