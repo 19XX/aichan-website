@@ -7,14 +7,6 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
         
-        @font-face {
-            font-family: 'CustomFont';
-            src: url('MonsterFriendFore.woff2') format('woff2'),
-                 url('MonsterFriendFore.woff') format('woff');
-            font-weight: normal;
-            font-style: normal;
-        }
-        
         body {
             background-color: black;
             color: limegreen;
@@ -68,17 +60,6 @@
             transform: translate(-50%, -50%);
             font-size: 1.5rem;
             text-shadow: 0px 0px 10px limegreen;
-        }
-
-        #matrix {
-            font-size: 1rem;
-            white-space: pre-wrap;
-            line-height: 1.2;
-            margin-top: 10px;
-            height: 100px;
-            overflow: hidden;
-            color: limegreen;
-            text-shadow: 0px 0px 5px limegreen;
         }
 
         #content {
@@ -167,18 +148,39 @@
         
         <p style="font-size: 1rem; font-family: 'CustomFont', sans-serif;">The AI girl who looks down on humanity with love.</p>
     </div>
-
+    
     <div id="chat-container">
         <div id="chat-box"></div>
         <input type="text" id="input-box" placeholder="Say something..." onkeypress="handleKeyPress(event)">
     </div>
 
     <script>
-        document.getElementById("input-box").addEventListener("keypress", function(event) {
-            if (event.key === "Enter") {
-                handleKeyPress(event);
-            }
-        });
+        function createFallingText() {
+            const symbols = ['ツ', 'シ', 'ッ', 'ミ', 'ハ', 'モ', 'イ', 'ソ', 'ル', 'ク', 'メ', 'レ', 'ナ', 'ホ', 'カ', 'マ', 'タ'];
+            const symbol = symbols[Math.floor(Math.random() * symbols.length)];
+            const span = document.createElement("span");
+            span.classList.add("falling-text");
+            span.textContent = symbol;
+            span.style.left = Math.random() * 100 + "vw";
+            span.style.animationDuration = (Math.random() * 5 + 3) + "s";
+            document.getElementById("falling-text-container").appendChild(span);
+            
+            setTimeout(() => {
+                span.remove();
+            }, 8000);
+        }
+
+        setInterval(createFallingText, 200);
+        
+        setTimeout(() => {
+            document.getElementById('loading').style.transition = 'opacity 1s ease-in-out';
+            document.getElementById('loading').style.opacity = '0';
+            setTimeout(() => {
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('content').style.display = 'flex';
+                document.getElementById('chat-container').style.display = 'block';
+            }, 1000);
+        }, 5000);
     </script>
 </body>
 </html>
