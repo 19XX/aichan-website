@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AIchan</title>
+    <title>AmI</title>
     <link rel="icon" type="image/x-icon" href="favicon.ico"> <!-- Added favicon -->
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
@@ -171,7 +171,7 @@
     </div>
     
     <div id="content" class="fade-in">
-        <h1 style="text-shadow: 0px 0px 5px limegreen; font-size: 2rem;">AIchan</h1>
+        <h1 style="text-shadow: 0px 0px 5px limegreen; font-size: 2rem;">AmI</h1>
         <div id="video-container">
             <video autoplay loop muted playsinline>
                 <source src="AIchan_introduce_1.mp4" type="video/mp4">
@@ -224,7 +224,7 @@
                 chatBox.innerHTML += `<div style='padding: 5px; border-radius: 5px; background-color: rgba(0, 0, 0, 0.7); margin-bottom: 5px;'><strong>You:</strong> ${userMessage}</div>`;
                 
                 // Add loading indicator
-                chatBox.innerHTML += `<div id="loading-indicator" style='padding: 5px; border-radius: 5px; background-color: rgba(0, 100, 0, 0.7); text-shadow: 0px 0px 3px limegreen; margin-bottom: 5px;'><strong>AIchan:</strong> Thinking...</div>`;
+                chatBox.innerHTML += `<div id="loading-indicator" style='padding: 5px; border-radius: 5px; background-color: rgba(0, 100, 0, 0.7); text-shadow: 0px 0px 3px limegreen; margin-bottom: 5px;'><strong>AmI:</strong> Thinking...</div>`;
                 chatBox.scrollTop = chatBox.scrollHeight;
 
                 try {
@@ -243,11 +243,11 @@
 
                     // Remove loading indicator and add the actual reply
                     document.getElementById('loading-indicator').remove();
-                    chatBox.innerHTML += `<div style='padding: 5px; border-radius: 5px; background-color: rgba(0, 100, 0, 0.7); text-shadow: 0px 0px 3px limegreen; margin-bottom: 5px;'><strong>AIchan:</strong> ${reply}</div>`;
+                    chatBox.innerHTML += `<div style='padding: 5px; border-radius: 5px; background-color: rgba(0, 100, 0, 0.7); text-shadow: 0px 0px 3px limegreen; margin-bottom: 5px;'><strong>AmI:</strong> ${reply}</div>`;
                 } catch (error) {
                     // Remove loading indicator and show error message
                     document.getElementById('loading-indicator').remove();
-                    chatBox.innerHTML += `<div style='padding: 5px; border-radius: 5px; background-color: rgba(100, 0, 0, 0.7); text-shadow: 0px 0px 3px red; margin-bottom: 5px;'><strong>Error:</strong> Failed to get a response from AIchan.</div>`;
+                    chatBox.innerHTML += `<div style='padding: 5px; border-radius: 5px; background-color: rgba(100, 0, 0, 0.7); text-shadow: 0px 0px 3px red; margin-bottom: 5px;'><strong>Error:</strong> Failed to get a response from AmI.</div>`;
                 } finally {
                     chatBox.scrollTop = chatBox.scrollHeight;
                 }
