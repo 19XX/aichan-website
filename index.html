@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>AmI</title>
     <link rel="icon" type="image/x-icon" href="favicon.ico"> <!-- Added favicon -->
     <style>
@@ -20,6 +20,7 @@
             text-align: center;
             flex-direction: column;
             text-shadow: 0px 0px 8px limegreen;
+            touch-action: manipulation;
         }
         #loading {
             font-size: 1.5rem;
@@ -140,7 +141,7 @@
                 font-size: 12px; /* Adjusted font size for mobile */
             }
             #input-box {
-                font-size: 12px; /* Adjusted font size for mobile */
+                font-size: 16px; /* Adjusted font size for mobile */
                 padding: 8px;
             }
         }
