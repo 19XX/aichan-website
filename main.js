@@ -65,10 +65,3 @@ document.addEventListener("DOMContentLoaded", () => {
         </footer>
     `;
 });
-
-// Adding script to index.html
-document.addEventListener("DOMContentLoaded", () => {
-    const script = document.createElement("script");
-    script.src = "main.js";
-    document.body.appendChild(script);
-});
