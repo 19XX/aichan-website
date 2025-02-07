@@ -2,34 +2,23 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta 
-    name="viewport" 
-    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" 
-  />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>Ami</title>
   <link rel="icon" type="image/x-icon" href="favicon.ico" />
   <style>
-    /* Define custom properties for easier theming */
-    :root {
-      --bg-color: #000;
-      --neon-color: limegreen;
-      --font-family: 'Press Start 2P', cursive;
-    }
-
     @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
     /* Base Styles */
     body {
-      background-color: var(--bg-color);
-      color: var(--neon-color);
-      font-family: var(--font-family);
+      background-color: black;
+      color: limegreen;
+      font-family: 'Press Start 2P', cursive;
       display: flex;
       flex-direction: column;
       align-items: center;
       margin: 0;
       text-align: center;
-      /* A subtle overall neon glow */
-      text-shadow: 0 0 8px var(--neon-color);
+      text-shadow: 0px 0px 8px limegreen;
       overflow-x: hidden;
     }
 
@@ -40,13 +29,13 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background-color: var(--bg-color);
+      background-color: black;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       font-size: 1.5rem;
-      text-shadow: 0 0 10px var(--neon-color);
+      text-shadow: 0px 0px 10px limegreen;
       z-index: 9999;
     }
     #matrix {
@@ -62,9 +51,8 @@
     #content {
       display: none;
       font-size: 1.2rem;
+      text-shadow: 0px 0px 10px limegreen;
       margin-top: 20px;
-      /* Increase clarity after loading */
-      text-shadow: 0 0 10px var(--neon-color);
     }
 
     /* Chat Container */
@@ -72,48 +60,40 @@
       display: none;
       width: 90%;
       max-width: 600px;
-      border: 4px double var(--neon-color);
+      border: 4px double limegreen;
       padding: 15px;
-      background: var(--bg-color);
+      background: black;
       text-align: left;
-      box-shadow: 0 0 15px var(--neon-color);
+      box-shadow: 0px 0px 15px limegreen;
       font-size: 16px;
       border-radius: 12px;
       margin: 20px auto;
-      transition: box-shadow 0.3s ease;
-    }
-    #chat-container:hover {
-      box-shadow: 0 0 25px var(--neon-color);
     }
     #chat-box {
       height: 250px;
       overflow-y: auto;
-      border-bottom: 2px solid var(--neon-color);
+      border-bottom: 2px solid limegreen;
       padding: 10px;
       background-color: rgba(0, 0, 0, 0.8);
-      font-family: var(--font-family);
-      color: var(--neon-color);
-      text-shadow: 0 0 5px var(--neon-color);
+      font-family: 'Press Start 2P', cursive;
+      color: limegreen;
+      text-shadow: 0px 0px 5px limegreen;
       border-radius: 10px;
-      box-shadow: inset 0 0 10px var(--neon-color);
+      box-shadow: inset 0px 0px 10px limegreen;
     }
     #input-box {
       width: calc(100% - 20px);
       padding: 10px;
       font-size: 16px;
-      border: 2px solid var(--neon-color);
-      background: var(--bg-color);
-      color: var(--neon-color);
+      border: 2px solid limegreen;
+      background: black;
+      color: limegreen;
       outline: none;
-      font-family: var(--font-family);
+      font-family: 'Press Start 2P', cursive;
       border-radius: 5px;
-      text-shadow: 0 0 5px var(--neon-color);
-      box-shadow: inset 0 0 5px var(--neon-color);
+      text-shadow: 0px 0px 5px limegreen;
+      box-shadow: inset 0px 0px 5px limegreen;
       margin-top: 10px;
-      transition: border 0.3s ease;
-    }
-    #input-box:focus {
-      border-color: #fff;
     }
 
     /* Fade-in Animation */
@@ -129,16 +109,12 @@
     #video-container {
       width: 90%;
       max-width: 360px;
-      border: 4px double var(--neon-color);
+      border: 4px double limegreen;
       padding: 10px;
-      background: var(--bg-color);
-      box-shadow: 0 0 15px var(--neon-color);
+      background: black;
+      box-shadow: 0px 0px 15px limegreen;
       border-radius: 12px;
       margin: 0 auto;
-      transition: transform 0.3s ease;
-    }
-    #video-container:hover {
-      transform: scale(1.02);
     }
     video {
       width: 100%;
@@ -153,33 +129,24 @@
       margin: 40px auto;
       padding: 20px;
       background: rgba(0, 0, 0, 0.8);
-      border: 2px solid var(--neon-color);
+      border: 2px solid limegreen;
       border-radius: 10px;
-      box-shadow: 0 0 10px var(--neon-color);
+      box-shadow: 0px 0px 10px limegreen;
       text-align: left;
-      text-shadow: 0 0 2px var(--neon-color);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    .section:hover {
-      transform: scale(1.01);
-      box-shadow: 0 0 20px var(--neon-color);
+      text-shadow: 0px 0px 2px limegreen;
+      
     }
     .section h2 {
       font-size: 1.8rem;
       margin-bottom: 10px;
-      /* Subtle neon pulse for main section titles */
-      animation: neonPulse 1.5s infinite alternate;
-    }
-    @keyframes neonPulse {
-      from { text-shadow: 0 0 3px var(--neon-color), 0 0 8px var(--neon-color); }
-      to { text-shadow: 0 0 8px var(--neon-color), 0 0 16px var(--neon-color); }
+      text-shadow: 0px 0px 2px limegreen;
     }
     .section p,
     .section ul,
     .section ol {
       font-size: 1rem;
       line-height: 1.4;
-      text-shadow: 0 0 2px var(--neon-color);
+      text-shadow: 0px 0px 2px limegreen;
     }
     .section ul {
       list-style: none;
@@ -187,12 +154,12 @@
     }
     .section ul li::before {
       content: "▹ ";
-      color: var(--neon-color);
+      color: limegreen;
     }
     .section h3 {
-      font-size: 1rem;
-      margin-bottom: 8px;
-      text-shadow: 0 0 2px var(--neon-color);
+     font-size: 1rem;
+     margin-bottom: 8px;
+     text-shadow: 0px 0px 2px limegreen; /* Reduced glow */
     }
 
     /* Button Styles for Dex Links */
@@ -200,18 +167,17 @@
       display: inline-block;
       padding: 10px 20px;
       margin: 10px;
-      border: 2px solid var(--neon-color);
-      color: var(--neon-color);
+      border: 2px solid limegreen;
+      color: limegreen;
       text-decoration: none;
-      font-family: var(--font-family);
-      background: var(--bg-color);
+      font-family: 'Press Start 2P', cursive;
+      background: black;
       border-radius: 5px;
-      transition: background 0.3s ease, transform 0.3s ease;
+      transition: background 0.3s ease;
     }
     .button:hover {
-      background: var(--neon-color);
-      color: var(--bg-color);
-      transform: scale(1.05);
+      background: limegreen;
+      color: black;
     }
 
     /* Responsive Adjustments */
@@ -264,7 +230,7 @@
 
   <!-- Main Content -->
   <div id="content" class="fade-in">
-    <h1 style="font-size: 2rem; text-shadow: 0 0 5px var(--neon-color);">Ami</h1>
+    <h1 style="text-shadow: 0px 0px 5px limegreen; font-size: 2rem;">Ami</h1>
     <div id="video-container">
       <video autoplay loop muted playsinline>
         <source src="AIchan_introduce_1.mp4" type="video/mp4" />
@@ -272,19 +238,14 @@
       </video>
     </div>
     <p style="font-size: 1rem; font-family: 'CustomFont', sans-serif;">
-      "Ami AI: I'll show you how deep the rabbit hole goes!"
+      "I'll show you how deep the rabbit hole goes!"
     </p>
   </div>
 
   <!-- Chat Section -->
   <div id="chat-container">
     <div id="chat-box"></div>
-    <input 
-      type="text" 
-      id="input-box" 
-      placeholder="Say something..." 
-      onkeypress="handleKeyPress(event)" 
-    />
+    <input type="text" id="input-box" placeholder="Say something..." onkeypress="handleKeyPress(event)" />
   </div>
 
   <!-- New Website Sections -->
@@ -337,12 +298,12 @@
   </section>
 
   <!-- Dex Screener & Dextool Section -->
-  <section id="dex-links" class="section">
-    <h2>Dex Screener & Dextool</h2>
-    <p>Check out our token on Dex Screener and Dextool for more information and analytics:</p>
-    <a href="https://dexscreener.com/" target="_blank" class="button">Dex Screener</a>
-    <a href="https://www.dextools.io/" target="_blank" class="button">Dextool</a>
-  </section>
+<section id="dex-links" class="section">
+  <h2>Dex Screener & Dextool</h2>
+  <p>Check out our token on Dex Screener and Dextool for more information and analytics:</p>
+  <a href="https://dexscreener.com/" target="_blank" class="button">Dex Screener</a>
+  <a href="https://www.dextools.io/" target="_blank" class="button">Dextool</a>
+</section>
 
   <!-- Footer Section -->
   <footer class="section">
@@ -402,7 +363,7 @@
         chatBox.innerHTML += `<div style='padding: 5px; border-radius: 5px; background-color: rgba(0, 0, 0, 0.7); margin-bottom: 5px;'><strong>You:</strong> ${userMessage}</div>`;
 
         // Add loading indicator for Ami's response
-        chatBox.innerHTML += `<div id="loading-indicator" style='padding: 5px; border-radius: 5px; background-color: rgba(0, 100, 0, 0.7); text-shadow: 0 0 3px var(--neon-color); margin-bottom: 5px;'><strong>Ami:</strong> Thinking...</div>`;
+        chatBox.innerHTML += `<div id="loading-indicator" style='padding: 5px; border-radius: 5px; background-color: rgba(0, 100, 0, 0.7); text-shadow: 0px 0px 3px limegreen; margin-bottom: 5px;'><strong>Ami:</strong> Thinking...</div>`;
         chatBox.scrollTop = chatBox.scrollHeight;
 
         try {
@@ -421,11 +382,11 @@
 
           // Remove loading indicator and display Ami's reply
           document.getElementById('loading-indicator').remove();
-          chatBox.innerHTML += `<div style='padding: 5px; border-radius: 5px; background-color: rgba(0, 100, 0, 0.7); text-shadow: 0 0 3px var(--neon-color); margin-bottom: 5px;'><strong>Ami:</strong> ${reply}</div>`;
+          chatBox.innerHTML += `<div style='padding: 5px; border-radius: 5px; background-color: rgba(0, 100, 0, 0.7); text-shadow: 0px 0px 3px limegreen; margin-bottom: 5px;'><strong>Ami:</strong> ${reply}</div>`;
         } catch (error) {
           // Remove loading indicator and display error message
           document.getElementById('loading-indicator').remove();
-          chatBox.innerHTML += `<div style='padding: 5px; border-radius: 5px; background-color: rgba(100, 0, 0, 0.7); text-shadow: 0 0 3px red; margin-bottom: 5px;'><strong>Error:</strong> Failed to get a response from Ami.</div>`;
+          chatBox.innerHTML += `<div style='padding: 5px; border-radius: 5px; background-color: rgba(100, 0, 0, 0.7); text-shadow: 0px 0px 3px red; margin-bottom: 5px;'><strong>Error:</strong> Failed to get a response from Ami.</div>`;
         } finally {
           chatBox.scrollTop = chatBox.scrollHeight;
         }
