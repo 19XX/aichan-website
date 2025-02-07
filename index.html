@@ -348,8 +348,11 @@
         contentEl.style.flexDirection = 'column';
         contentEl.style.alignItems = 'center';
         chatEl.style.display = 'block';
-      }, 1000);
-    }, 5000);
+      }
+        // Force the page to scroll to the top
+        window.scrollTo(0, 0);
+    }, 1000);
+}, 5000);
 
     // Chat input handling function
     async function handleKeyPress(event) {
