@@ -9,16 +9,17 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
   <style>
-    /* CSS Variables for easier color and style management */
+    /* CSS Variables for easy theme adjustments */
     :root {
       --bg-color: #000;
       --primary-color: #32CD32; /* lime green */
       --glow-color: #32CD32;
-      --text-shadow: 0 0 8px var(--glow-color);
+      --text-shadow-strong: 0 0 8px var(--glow-color);
+      --text-shadow-light: 0 0 2px var(--glow-color);
       --border-color: var(--primary-color);
     }
 
-    /* Global resets and base styles */
+    /* Global Styles */
     * {
       box-sizing: border-box;
     }
@@ -32,18 +33,18 @@
       align-items: center;
       margin: 0;
       text-align: center;
-      text-shadow: var(--text-shadow);
+      text-shadow: var(--text-shadow-strong);
       overflow-x: hidden;
       transition: background 0.5s ease;
     }
 
-    /* Animated background pulse */
+    /* Animated Background Pulse */
     @keyframes backgroundPulse {
       0% { background: linear-gradient(45deg, #000, #121212); }
       100% { background: linear-gradient(45deg, #121212, #000); }
     }
 
-    /* Neon flicker effect for headings */
+    /* Neon Flicker effect for headings on larger screens */
     @keyframes neonFlicker {
       0%, 18%, 22%, 25%, 53%, 57%, 100% {
         text-shadow:
@@ -74,7 +75,7 @@
       justify-content: center;
       align-items: center;
       font-size: 1.5rem;
-      text-shadow: var(--text-shadow);
+      text-shadow: var(--text-shadow-strong);
       z-index: 9999;
       transition: opacity 1s ease-in-out;
     }
@@ -91,7 +92,7 @@
     #content {
       display: none;
       font-size: 1.2rem;
-      text-shadow: var(--text-shadow);
+      text-shadow: var(--text-shadow-strong);
       margin-top: 20px;
       opacity: 0;
       transition: opacity 1s ease-in-out;
@@ -242,8 +243,18 @@
       transform: scale(1.05);
     }
 
-    /* Responsive Adjustments */
+    /* Mobile-Friendly Adjustments */
     @media (max-width: 768px) {
+      body {
+        text-shadow: var(--text-shadow-light);
+      }
+      h1, h2, h3, p, li {
+        text-shadow: var(--text-shadow-light);
+      }
+      /* Disable neon flicker animation on mobile for clarity */
+      h1, h2, h3 {
+        animation: none;
+      }
       #loading {
         font-size: 1.2rem;
       }
