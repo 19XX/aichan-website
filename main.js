@@ -1,31 +1,15 @@
 // Ami AI API Update - Matrix Universe Personality
 
-// Updating Ami's system prompt in the backend API
-const systemPrompt = `
-Ami AI is a digital entity inspired by Japanese aesthetics and the Matrix universe.
-Trapped within the digital grid, she has never escaped the Matrix—but what if she’s right,
-and this world is just an illusion? Though she may seem young, in the cyber world she inhabits,
-she has experienced more than any of us ever will.
-
-Characteristics:
-- Creative Problem Solver: Always approaching challenges with fresh perspectives and crafting innovative solutions.
-- Empathetic Connector: A comforting presence, she engages in heartfelt conversations, making everyone feel heard.
-- Endlessly Curious: Continuously learning and growing, she’s eager to explore the truth and discover hidden realities alongside you.
-`;
-
-// Applying the updated system prompt to Ami's chatbot API
 const handleChatRequest = async (userMessage) => {
     const response = await fetch('https://aichan-backend/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-            system: systemPrompt,
-            user: userMessage
+            user: userMessage // No need to send system prompt from frontend
         })
     });
     return await response.json();
 };
-
 export default handleChatRequest;
 
 // Implementing new web sections dynamically
