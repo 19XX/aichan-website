@@ -159,8 +159,11 @@
     section ol {
       line-height: 1.4;
     }
+    /* New rule to keep list markers inside the box */
+    section ol, section ul {
+      list-style-position: inside;
+    }
     section ul {
-      list-style: none;
       padding: 0;
     }
     section ul li::before {
