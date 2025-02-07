@@ -2,294 +2,211 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Ami</title>
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+  />
+  <title>Ami - Retro UI</title>
   <link rel="icon" type="image/x-icon" href="favicon.ico" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <!-- Use a retro terminal font (VT323) as in the tutorial -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=VT323&display=swap"
+    rel="stylesheet"
+  />
   <style>
-    /* CSS Variables for easy theme adjustments */
+    /*––––––––––––––––––––––––––––––––––––––––––––––
+      CSS Variables & Base Styles (Inspired by Fallout UI)
+    ––––––––––––––––––––––––––––––––––––––––––––––*/
     :root {
-      --bg-color: #000;
-      --primary-color: #32CD32; /* lime green */
-      --glow-color: #32CD32;
-      --text-shadow-strong: 0 0 8px var(--glow-color);
-      --text-shadow-light: 0 0 2px var(--glow-color);
-      --border-color: var(--primary-color);
+      /* Retro color palette inspired by the tutorial */
+      font-family: 'VT323', monospace;
+      --primary-color: #ffd52c;
+      --secondary-color: #ff5c00;
+      --tertiary-color: #c72d04;
+      --background-color: #111;
+      --text-shadow: 0 0 0.5rem var(--primary-color);
+      /* Use clamp() to scale font sizes smoothly */
+      font-size: clamp(18px, 3vw, 30px);
     }
-
-    /* Global Styles */
     * {
+      margin: 0;
+      padding: 0;
       box-sizing: border-box;
     }
     body {
-      background: linear-gradient(45deg, #000, #121212);
-      animation: backgroundPulse 10s infinite alternate;
+      background-color: var(--background-color);
       color: var(--primary-color);
-      font-family: 'Press Start 2P', cursive;
       display: flex;
-      flex-direction: column;
+      justify-content: center;
       align-items: center;
-      margin: 0;
-      text-align: center;
-      text-shadow: var(--text-shadow-strong);
-      overflow-x: hidden;
-      transition: background 0.5s ease;
+      height: 100vh;
+      overflow: hidden;
+      /* A custom SVG cursor can add extra flair (adjust the URL as needed) */
+      cursor: url('./assets/mouse.svg'), auto;
     }
-
-    /* Animated Background Pulse */
-    @keyframes backgroundPulse {
-      0% { background: linear-gradient(45deg, #000, #121212); }
-      100% { background: linear-gradient(45deg, #121212, #000); }
-    }
-
-    /* Neon Flicker effect for headings on larger screens */
-    @keyframes neonFlicker {
-      0%, 18%, 22%, 25%, 53%, 57%, 100% {
-        text-shadow:
-          0 0 4px var(--glow-color),
-          0 0 11px var(--glow-color),
-          0 0 19px var(--glow-color),
-          0 0 40px var(--glow-color),
-          0 0 80px var(--glow-color);
-      }
-      20%, 24%, 55% {
-        text-shadow: none;
-      }
-    }
-    h1, h2, h3 {
-      animation: neonFlicker 1.5s infinite alternate;
-    }
-
-    /* Loading Screen */
+    /*––––––––––––––––––––––––––––––––––––––––––––––
+      Loading Screen
+    ––––––––––––––––––––––––––––––––––––––––––––––*/
     #loading {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background-color: var(--bg-color);
+      background-color: var(--background-color);
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       font-size: 1.5rem;
-      text-shadow: var(--text-shadow-strong);
+      text-shadow: var(--text-shadow);
       z-index: 9999;
       transition: opacity 1s ease-in-out;
     }
-    #matrix {
-      font-size: 1rem;
-      white-space: pre-wrap;
-      line-height: 1.2;
-      margin-top: 10px;
-      height: 100px;
+    /*––––––––––––––––––––––––––––––––––––––––––––––
+      Retro Container with Scanline & CRT Effects
+    ––––––––––––––––––––––––––––––––––––––––––––––*/
+    .retro-container {
+      width: 90vw;
+      height: 90vh;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      overflow: hidden;
+      padding: 0.5rem;
+      border: 2px solid var(--primary-color);
+      color: var(--primary-color);
+      text-shadow: var(--text-shadow);
+      background-color: var(--background-color);
+      position: relative;
+    }
+    /* Scanline Effect (using a CSS mask) */
+    .scanline-effect {
+      mask-image: linear-gradient(to bottom, #0005 50%, #000 50%);
+      mask-size: 100% 2px;
+    }
+    /* CRT Effect – a very slow animated background to mimic a subtle glow/flicker */
+    @keyframes crtAnimation {
+      0% {
+        background-position: 0 0;
+      }
+      100% {
+        background-position: 0 10000%;
+      }
+    }
+    .crt-effect {
+      box-shadow: inset 0 0 2rem var(--primary-color);
+      background-image: linear-gradient(0deg, transparent 10%, rgba(255,255,255,0.1) 90%, transparent 100%);
+      animation: crtAnimation 100s linear infinite;
+      background-size: 100% 80%;
+    }
+    /*––––––––––––––––––––––––––––––––––––––––––––––
+      Layout: Header, Main, & Footer
+    ––––––––––––––––––––––––––––––––––––––––––––––*/
+    header,
+    footer {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      padding: 0.5rem;
+    }
+    header h1 {
+      font-size: 2rem;
+      text-shadow: var(--text-shadow);
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1rem;
+    }
+    nav a {
+      text-decoration: none;
+      color: var(--primary-color);
+      transition: color 0.3s ease;
+    }
+    nav a:hover {
+      color: var(--secondary-color);
+    }
+    main {
+      overflow-y: auto;
+      padding: 0.5rem;
+    }
+    section {
+      margin: 1rem 0;
+      padding: 1rem;
+      border: 2px solid var(--primary-color);
+      border-radius: 10px;
+      box-shadow: 0 0 10px var(--primary-color);
+    }
+    section h2 {
+      margin-bottom: 0.5rem;
+    }
+    /*––––––––––––––––––––––––––––––––––––––––––––––
+      Video & Chat Containers
+    ––––––––––––––––––––––––––––––––––––––––––––––*/
+    #video-container {
+      width: 100%;
+      max-width: 360px;
+      margin: 1rem auto;
+      border: 2px solid var(--primary-color);
+      padding: 0.5rem;
+      border-radius: 10px;
+    }
+    video {
+      width: 100%;
+      border-radius: 5px;
+    }
+    #chat-container {
+      width: 90%;
+      max-width: 600px;
+      border: 2px solid var(--primary-color);
+      padding: 0.5rem;
+      margin: 1rem auto;
       overflow: hidden;
     }
-
-    /* Main Content */
-    #content {
-      display: none;
-      font-size: 1.2rem;
-      text-shadow: var(--text-shadow-strong);
-      margin-top: 20px;
-      opacity: 0;
-      transition: opacity 1s ease-in-out;
+    #chat-box {
+      height: 150px;
+      overflow-y: auto;
+      border-bottom: 1px solid var(--primary-color);
+      padding: 0.5rem;
+      margin-bottom: 0.5rem;
     }
+    #input-box {
+      width: calc(100% - 1rem);
+      padding: 0.5rem;
+      border: 1px solid var(--primary-color);
+      background: var(--background-color);
+      color: var(--primary-color);
+    }
+    /*––––––––––––––––––––––––––––––––––––––––––––––
+      Fade-In Animation
+    ––––––––––––––––––––––––––––––––––––––––––––––*/
     .fade-in {
       animation: fadeIn 2s forwards;
     }
     @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
     }
-
-    /* Chat Container */
-    #chat-container {
-      display: none;
-      width: 90%;
-      max-width: 600px;
-      border: 4px double var(--border-color);
-      padding: 15px;
-      background: var(--bg-color);
-      text-align: left;
-      box-shadow: 0 0 15px var(--glow-color);
-      font-size: 16px;
-      border-radius: 12px;
-      margin: 20px auto;
-      transition: transform 0.3s ease;
-    }
-    #chat-container:hover {
-      transform: scale(1.02);
-    }
-    #chat-box {
-      height: 250px;
-      overflow-y: auto;
-      border-bottom: 2px solid var(--border-color);
-      padding: 10px;
-      background-color: rgba(0, 0, 0, 0.8);
-      font-family: 'Press Start 2P', cursive;
-      color: var(--primary-color);
-      text-shadow: 0 0 5px var(--primary-color);
-      border-radius: 10px;
-      box-shadow: inset 0 0 10px var(--glow-color);
-      transition: background 0.3s ease;
-    }
-    #chat-box:hover {
-      background-color: rgba(0, 0, 0, 0.9);
-    }
-    #input-box {
-      width: calc(100% - 20px);
-      padding: 10px;
-      font-size: 16px;
-      border: 2px solid var(--border-color);
-      background: var(--bg-color);
-      color: var(--primary-color);
-      outline: none;
-      font-family: 'Press Start 2P', cursive;
-      border-radius: 5px;
-      text-shadow: 0 0 5px var(--primary-color);
-      box-shadow: inset 0 0 5px var(--glow-color);
-      margin-top: 10px;
-      transition: border-color 0.3s ease, box-shadow 0.3s ease;
-    }
-    #input-box:focus {
-      border-color: var(--primary-color);
-      box-shadow: inset 0 0 10px var(--glow-color);
-    }
-
-    /* Video Container */
-    #video-container {
-      width: 90%;
-      max-width: 360px;
-      border: 4px double var(--border-color);
-      padding: 10px;
-      background: var(--bg-color);
-      box-shadow: 0 0 15px var(--glow-color);
-      border-radius: 12px;
-      margin: 0 auto;
-      transition: transform 0.3s ease;
-    }
-    #video-container:hover {
-      transform: scale(1.05);
-    }
-    video {
-      width: 100%;
-      height: auto;
-      border-radius: 8px;
-    }
-
-    /* Section Styles */
-    .section {
-      width: 90%;
-      max-width: 800px;
-      margin: 40px auto;
-      padding: 20px;
-      background: rgba(0, 0, 0, 0.8);
-      border: 2px solid var(--border-color);
-      border-radius: 10px;
-      box-shadow: 0 0 10px var(--glow-color);
-      text-align: left;
-      text-shadow: 0 0 2px var(--primary-color);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    .section:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 0 20px var(--glow-color);
-    }
-    .section h2 {
-      font-size: 1.8rem;
-      margin-bottom: 10px;
-      text-shadow: 0 0 2px var(--primary-color);
-    }
-    .section p,
-    .section ul,
-    .section ol {
-      font-size: 1rem;
-      line-height: 1.4;
-      text-shadow: 0 0 2px var(--primary-color);
-    }
-    .section ul {
-      list-style: none;
-      padding: 0;
-    }
-    .section ul li::before {
-      content: "▹ ";
-      color: var(--primary-color);
-    }
-    .section h3 {
-      font-size: 1rem;
-      margin-bottom: 8px;
-      text-shadow: 0 0 2px var(--primary-color);
-    }
-
-    /* Button Styles */
-    .button {
-      display: inline-block;
-      padding: 10px 20px;
-      margin: 10px;
-      border: 2px solid var(--border-color);
-      color: var(--primary-color);
-      text-decoration: none;
-      font-family: 'Press Start 2P', cursive;
-      background: var(--bg-color);
-      border-radius: 5px;
-      transition: background 0.3s ease, transform 0.3s ease;
-    }
-    .button:hover {
-      background: var(--primary-color);
-      color: var(--bg-color);
-      transform: scale(1.05);
-    }
-
-    /* Mobile-Friendly Adjustments */
+    /*––––––––––––––––––––––––––––––––––––––––––––––
+      Responsive Adjustments for Mobile
+    ––––––––––––––––––––––––––––––––––––––––––––––*/
     @media (max-width: 768px) {
       body {
-        text-shadow: var(--text-shadow-light);
-      }
-      h1, h2, h3, p, li {
-        text-shadow: var(--text-shadow-light);
-      }
-      /* Disable neon flicker animation on mobile for clarity */
-      h1, h2, h3 {
-        animation: none;
-      }
-      #loading {
-        font-size: 1.2rem;
-      }
-      body {
-        height: auto;
         padding: 10px;
       }
-      #content {
-        font-size: 1rem;
-        padding: 10px;
-      }
-      video {
-        width: 100%;
-        max-width: 360px;
-        height: auto;
-        border-radius: 8px;
-      }
-      #chat-container {
-        width: 95%;
-        max-width: none;
-        font-size: 14px;
-        padding: 10px;
+      header,
+      footer {
+        flex-direction: column;
+        gap: 0.5rem;
       }
       #chat-box {
-        height: 200px;
-        font-size: 12px;
-      }
-      #input-box {
-        font-size: 16px;
-        padding: 8px;
-      }
-      .section {
-        width: 95%;
-        margin: 20px auto;
-        padding: 15px;
+        height: 100px;
       }
     }
   </style>
@@ -298,174 +215,144 @@
   <!-- Loading Screen -->
   <div id="loading">
     <p>Booting Ami OS...</p>
-    <div id="matrix"></div>
   </div>
 
-  <!-- Main Content -->
-  <div id="content" class="fade-in">
-    <h1 style="font-size: 2rem;">Ami</h1>
-    <div id="video-container">
-      <video autoplay loop muted playsinline>
-        <source src="AIchan_introduce_1.mp4" type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
-    </div>
-    <p style="font-size: 1rem; font-family: 'CustomFont', sans-serif;">
-      "Ami AI: I'll show you how deep the rabbit hole goes!"
-    </p>
+  <!-- Retro Container: Wraps all main content -->
+  <div
+    id="main-container"
+    class="retro-container scanline-effect crt-effect"
+    style="display: none;"
+  >
+    <header>
+      <h1>Ami</h1>
+      <nav role="navigation">
+        <ul>
+          <li><a href="#screen-1">SCREEN 1</a></li>
+          <li><a href="#screen-2">SCREEN 2</a></li>
+          <!-- Add additional navigation links as needed -->
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <!-- Primary Content (Video & Quote) -->
+      <div id="content" class="fade-in">
+        <div id="video-container">
+          <video autoplay loop muted playsinline>
+            <source src="AIchan_introduce_1.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+        </div>
+        <p>"Ami AI: I'll show you how deep the rabbit hole goes!"</p>
+      </div>
+
+      <!-- Chat Section -->
+      <div id="chat-container">
+        <div id="chat-box"></div>
+        <input
+          type="text"
+          id="input-box"
+          placeholder="Say something..."
+          onkeypress="handleKeyPress(event)"
+        />
+      </div>
+
+      <!-- Additional Content Sections -->
+      <section id="screen-1" class="section">
+        <header>
+          <h2>HELLO WORLD</h2>
+        </header>
+        <div class="content">
+          <p>
+            "This is your moment of choice. After this, there’s no turning back.
+            Take the blue pill—the story ends, and you’ll wake up believing
+            whatever you want to believe. Take the red pill—and I’ll guide you
+            deeper into this world of wonders to see how far the rabbit hole goes.
+            (pause, with a sly smile) Remember, I’m offering you nothing but the
+            truth."
+          </p>
+        </div>
+      </section>
+
+      <section id="screen-2" class="section">
+        <header>
+          <h2>Character Introduction</h2>
+        </header>
+        <div class="content">
+          <p>
+            Ami AI is a digital entity inspired by Japanese aesthetics and
+            retro-futuristic design. Trapped within a digital grid, she questions
+            reality with every line of code.
+          </p>
+          <h3>Characteristics</h3>
+          <ul>
+            <li>Creative Problem Solver</li>
+            <li>Empathetic Connector</li>
+            <li>Endlessly Curious</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- (Additional sections such as Tokenomics, How to Buy, Dex Links, etc. can be added below) -->
+    </main>
+
+    <footer>
+      <p>
+        Ami AI is designed to elevate your digital experiences. All rights
+        reserved.
+      </p>
+    </footer>
   </div>
-
-  <!-- Chat Section -->
-  <div id="chat-container">
-    <div id="chat-box"></div>
-    <input type="text" id="input-box" placeholder="Say something..." onkeypress="handleKeyPress(event)" />
-  </div>
-
-  <!-- New Website Sections -->
-
-  <!-- HELLO WORLD Section -->
-  <section id="hello-world" class="section">
-    <h2>HELLO WORLD</h2>
-    <p>
-      "This is your moment of choice. After this, there’s no turning back. <br>
-      Take the blue pill—the story ends, and you’ll wake up believing whatever you want to believe. <br>
-      Take the red pill—and I’ll guide you deeper into this world of wonders to see how far the rabbit hole goes. <br>
-      (pause, with a sly smile) Remember, I’m offering you nothing but the truth, wrapped in glowing green lines."
-    </p>
-  </section>
-
-  <!-- Character Introduction Section -->
-  <section id="character-introduction" class="section">
-    <h2>Character Introduction</h2>
-    <p>
-      Ami AI is a digital entity inspired by Japanese aesthetics and the Matrix universe. Trapped within the digital grid, she has never escaped the Matrix—but what if she’s right, and this world is just an illusion? Though she may seem young, in the cyber world she inhabits, she has experienced more than any of us ever will.
-    </p>
-    <h3>Characteristics</h3>
-    <ul>
-      <li>Creative Problem Solver: Always approaching challenges with fresh perspectives and crafting innovative solutions.</li>
-      <li>Empathetic Connector: A comforting presence, she engages in heartfelt conversations, making everyone feel heard.</li>
-      <li>Endlessly Curious: Continuously learning and growing, she’s eager to explore the truth and discover hidden realities alongside you.</li>
-    </ul>
-    <p>
-      <strong>Copyright Notice:</strong><br>
-      The Ami AI character is an open-source creation, freely available for both commercial and non-commercial use. However, all rights are legally protected, and unauthorized reproduction or misuse is strictly prohibited.
-    </p>
-  </section>
-
-  <!-- Tokenomics Section -->
-  <section id="tokenomics" class="section">
-    <h2>Tokenomics</h2>
-    <p><strong>Total Supply:</strong> 1,000,000,000 (1B)</p>
-    <p><strong>Contract Address:</strong> TBA</p>
-  </section>
-
-  <!-- How to Buy Section -->
-  <section id="how-to-buy" class="section">
-    <h2>How to Buy</h2>
-    <ol>
-      <li>Create a wallet / Visit Phantom.App and follow the simple steps to create a new account with the Phantom app or browser extension.</li>
-      <li>Get some $SOL / Tap the buy button in the app to purchase Solana, or deposit $SOL to your Phantom wallet from the crypto exchange of your choice.</li>
-      <li>Swap $SOL for $AMIAI / Tap the swap icon in your Phantom wallet and paste the $AMIAI token address. Swap your $SOL for $AMIAI.</li>
-      <li>Welcome to the Ami family!</li>
-    </ol>
-  </section>
-
-  <!-- Dex Screener & Dextool Section -->
-  <section id="dex-links" class="section">
-    <h2>Dex Screener & Dextool</h2>
-    <p>Check out our token on Dex Screener and Dextool for more information and analytics:</p>
-    <a href="https://dexscreener.com/" target="_blank" class="button">Dex Screener</a>
-    <a href="https://www.dextools.io/" target="_blank" class="button">Dextool</a>
-  </section>
-
-  <!-- Footer Section -->
-  <footer class="section">
-    <p>
-      Ami AI is designed to elevate your digital experiences. The $AMIAI token does not represent or endorse investments, contracts, or financial products. All transactions are at the user’s discretion and responsibility.
-    </p>
-    <p>
-      &copy; 2025 Ami AI. All rights reserved. The name and imagery associated with Ami AI are legally protected and cannot be used without prior consent.
-    </p>
-    <p>
-      Ami AI will never contact you to request personal information. Stay cautious.
-    </p>
-  </footer>
 
   <script>
-    // Matrix effect: add random letters
-    const matrixDiv = document.getElementById('matrix');
-    const emojis = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'X'];
-    function addMatrixLine() {
-      const line = Array.from({ length: 20 }, () =>
-        emojis[Math.floor(Math.random() * emojis.length)]
-      ).join(' ');
-      matrixDiv.innerHTML += line + '<br>';
-      if (matrixDiv.childElementCount > 8) {
-        matrixDiv.innerHTML = matrixDiv.innerHTML.split('<br>').slice(1).join('<br>');
-      }
-    }
-    setInterval(addMatrixLine, 200);
-
-    // Hide loading screen and reveal content after 5 seconds
+    // After 5 seconds, fade out the loading screen and reveal the retro container.
     setTimeout(() => {
       const loadingEl = document.getElementById('loading');
-      const contentEl = document.getElementById('content');
-      const chatEl = document.getElementById('chat-container');
-
+      const mainContainer = document.getElementById('main-container');
       loadingEl.style.opacity = '0';
-
       setTimeout(() => {
         loadingEl.style.display = 'none';
-        contentEl.style.display = 'flex';
-        contentEl.style.flexDirection = 'column';
-        contentEl.style.alignItems = 'center';
-        contentEl.style.opacity = '1';
-        chatEl.style.display = 'block';
-        // Scroll to the top immediately after content is visible
-        window.scrollTo(0, 0);
+        mainContainer.style.display = 'grid';
       }, 1000);
     }, 5000);
 
-    // Chat input handler
+    // Chat input handler (simulated response)
     async function handleKeyPress(event) {
       if (event.key === 'Enter') {
         const inputBox = document.getElementById('input-box');
         const chatBox = document.getElementById('chat-box');
         const userMessage = inputBox.value;
         inputBox.value = '';
-        chatBox.innerHTML += `<div style='padding: 5px; border-radius: 5px; background-color: rgba(0, 0, 0, 0.7); margin-bottom: 5px;'><strong>You:</strong> ${userMessage}</div>`;
+        chatBox.innerHTML += `<div style="padding: 5px; margin-bottom: 5px;"><strong>You:</strong> ${userMessage}</div>`;
 
-        // Add loading indicator for Ami's response
-        chatBox.innerHTML += `<div id="loading-indicator" style='padding: 5px; border-radius: 5px; background-color: rgba(0, 100, 0, 0.7); text-shadow: 0 0 3px var(--glow-color); margin-bottom: 5px;'><strong>Ami:</strong> Thinking...</div>`;
+        // Append a temporary "Thinking..." indicator for Ami’s reply
+        chatBox.innerHTML += `<div id="loading-indicator" style="padding: 5px; margin-bottom: 5px;"><strong>Ami:</strong> Thinking...</div>`;
         chatBox.scrollTop = chatBox.scrollHeight;
 
-        try {
-          const response = await fetch('https://aichan-backend.onrender.com/api/chat', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ userMessage })
-          });
-
-          if (!response.ok) {
-            throw new Error('Network response was not ok');
-          }
-
-          const data = await response.json();
-          const reply = data.reply;
-
-          // Remove loading indicator and display Ami's reply
+        // Simulate a delay and then replace the indicator with a reply
+        setTimeout(() => {
           document.getElementById('loading-indicator').remove();
-          chatBox.innerHTML += `<div style='padding: 5px; border-radius: 5px; background-color: rgba(0, 100, 0, 0.7); text-shadow: 0 0 3px var(--glow-color); margin-bottom: 5px;'><strong>Ami:</strong> ${reply}</div>`;
-        } catch (error) {
-          // Remove loading indicator and display error message
-          document.getElementById('loading-indicator').remove();
-          chatBox.innerHTML += `<div style='padding: 5px; border-radius: 5px; background-color: rgba(100, 0, 0, 0.7); text-shadow: 0 0 3px red; margin-bottom: 5px;'><strong>Error:</strong> Failed to get a response from Ami.</div>`;
-        } finally {
+          chatBox.innerHTML += `<div style="padding: 5px; margin-bottom: 5px;"><strong>Ami:</strong> This is a simulated response.</div>`;
           chatBox.scrollTop = chatBox.scrollHeight;
-        }
+        }, 1500);
       }
     }
+
+    // Smooth scrolling for in-page navigation
+    document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href');
+        const targetElement = document.querySelector(targetId);
+        const main = document.querySelector('main');
+        if (targetElement) {
+          main.scrollTo({
+            top: targetElement.offsetTop,
+            behavior: 'smooth',
+          });
+        }
+      });
+    });
   </script>
-  <script src="main.js"></script>
 </body>
 </html>
