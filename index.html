@@ -1,296 +1,260 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>AmI</title>
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
-  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-  <style>
-    /* 기본 스타일 */
-    body {
-      margin: 0;
-      padding: 0;
-      background-color: black;
-      color: limegreen;
-      font-family: 'Press Start 2P', cursive;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      text-align: center;
-      text-shadow: 0 0 8px limegreen;
-      overflow-x: hidden;
-    }
-    
-    /* 로딩 화면 */
-    #loading {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 1.5rem;
-      text-shadow: 0 0 10px limegreen;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      transition: opacity 1s ease-in-out;
-      z-index: 1000;
-    }
-    
-    /* 메인 콘텐츠 */
-    #content {
-      display: none;
-      opacity: 0;
-      animation: fadeIn 2s forwards;
-      font-size: 1.2rem;
-      text-shadow: 0 0 10px limegreen;
-    }
-    
-    @keyframes fadeIn {
-      to { opacity: 1; }
-    }
-    
-    /* 섹션 스타일 */
-    section {
-      margin: 20px 0;
-      display: none;
-    }
-    
-    /* 비디오 컨테이너 */
-    #video-container {
-      width: 90%;
-      max-width: 360px;
-      border: 4px double limegreen;
-      padding: 10px;
-      background: black;
-      box-shadow: 0 0 15px limegreen;
-      border-radius: 12px;
-      margin: 20px auto;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-    
-    video {
-      width: 100%;
-      height: auto;
-      border-radius: 8px;
-    }
-    
-    /* 채팅 컨테이너 (실제 HTML 요소 추가) */
-    #chat-container {
-      display: none;
-      width: 90%;
-      max-width: 600px;
-      border: 4px double limegreen;
-      padding: 15px;
-      background: black;
-      text-align: left;
-      box-shadow: 0 0 15px limegreen;
-      font-size: 16px;
-      border-radius: 12px;
-      margin: 20px auto;
-    }
-    
-    #chat-box {
-      height: 250px;
-      overflow-y: auto;
-      border-bottom: 2px solid limegreen;
-      padding: 10px;
-      background-color: rgba(0, 0, 0, 0.8);
-      font-family: 'Press Start 2P', cursive;
-      color: limegreen;
-      text-shadow: 0 0 5px limegreen;
-      border-radius: 10px;
-      box-shadow: inset 0 0 10px limegreen;
-      margin-bottom: 10px;
-    }
-    
-    #input-box {
-      width: calc(100% - 20px);
-      padding: 10px;
-      font-size: 16px;
-      border: 2px solid limegreen;
-      background: black;
-      color: limegreen;
-      outline: none;
-      font-family: 'Press Start 2P', cursive;
-      border-radius: 5px;
-      text-shadow: 0 0 5px limegreen;
-      box-shadow: inset 0 0 5px limegreen;
-    }
-    
-    /* 커스텀 폰트 */
-    @font-face {
-      font-family: 'CustomFont';
-      src: url('MonsterFriendFore.woff2') format('woff2'),
-           url('MonsterFriendFore.woff') format('woff');
-      font-weight: normal;
-      font-style: normal;
-    }
-    
-    /* 반응형 디자인 */
-    @media (max-width: 768px) {
-      #loading {
-        font-size: 1.2rem;
-      }
-      body {
-        padding: 10px;
-      }
-      #content {
-        font-size: 1rem;
-        padding: 10px;
-      }
-      video {
-        max-width: 360px;
-        border-radius: 8px;
-      }
-      #chat-container {
-        width: 95%;
-        font-size: 14px;
-        padding: 10px;
-      }
-      #chat-box {
-        height: 200px;
-        font-size: 12px;
-      }
-      #input-box {
-        font-size: 16px;
-        padding: 8px;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Ami</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico"> <!-- Added favicon -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+        
+        body {
+            background-color: black;
+            color: limegreen;
+            font-family: 'Press Start 2P', cursive;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            text-align: center;
+            flex-direction: column;
+            text-shadow: 0px 0px 8px limegreen;
+            touch-action: manipulation;
+        }
+        #loading {
+            font-size: 1.5rem;
+            overflow: hidden;
+            text-shadow: 0px 0px 10px limegreen;
+            text-align: center;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+        #matrix {
+            font-size: 1rem;
+            white-space: pre-wrap;
+            line-height: 1.2;
+            margin-top: 10px;
+            height: 100px;
+            overflow: hidden;
+        }
+        #content {
+            display: none;
+            font-size: 1.2rem;
+            text-shadow: 0px 0px 10px limegreen;
+        }
+        #chat-container {
+            display: none;
+            width: 90%;
+            max-width: 600px;
+            border: 4px double limegreen;
+            padding: 15px;
+            background: black;
+            text-align: left;
+            box-shadow: 0px 0px 15px limegreen;
+            font-size: 16px;
+            border-radius: 12px;
+            padding: 15px;
+        }
+        #chat-box {
+            height: 250px;
+            overflow-y: auto;
+            border-bottom: 2px solid limegreen;
+            padding: 10px;
+            background-color: rgba(0, 0, 0, 0.8);
+            font-family: 'Press Start 2P', cursive;
+            color: limegreen;
+            text-shadow: 0px 0px 5px limegreen;
+            border-radius: 10px;
+            box-shadow: inset 0px 0px 10px limegreen;
+        }
+        #input-box {
+    width: calc(100% - 20px);
+    padding: 10px;
+    font-size: 16px; /* Prevents zoom-in on mobile */
+    border: 2px solid limegreen;
+    background: black;
+    color: limegreen;
+    outline: none;
+    font-family: 'Press Start 2P', cursive;
+    border-radius: 5px;
+    text-shadow: 0px 0px 5px limegreen;
+    box-shadow: inset 0px 0px 5px limegreen;
+}
+        .fade-in {
+            animation: fadeIn 2s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        pre {
+            font-size: 14px;
+            line-height: 1.2;
+        }
+        @font-face {
+            font-family: 'CustomFont';
+            src: url('MonsterFriendFore.woff2') format('woff2'),
+                 url('MonsterFriendFore.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+        @media (max-width: 768px) {
+            #loading {
+                font-size: 1.2rem;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
+            #loading {
+                font-size: 1.2rem;
+            }
+            body {
+                height: auto;
+                padding: 10px;
+            }
+            #content {
+                font-size: 1rem;
+                padding: 10px;
+            }
+            video {
+                width: 100%;
+                max-width: 360px;
+                height: auto;
+                border-radius: 8px;
+            }
+            #chat-container {
+                width: 95%;
+                max-width: none;
+                font-size: 14px;
+                padding: 10px;
+            }
+            #chat-box {
+                height: 200px;
+                font-size: 12px; /* Adjusted font size for mobile */
+            }
+            #input-box {
+                font-size: 16px; /* Adjusted font size for mobile */
+                padding: 8px;
+            }
+        }
+        #video-container {
+            width: 90%;
+            max-width: 360px;
+            border: 4px double limegreen;
+            padding: 10px;
+            background: black;
+            box-shadow: 0px 0px 15px limegreen;
+            border-radius: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto;
+        }
+        video {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+    </style>
 </head>
 <body>
-  <!-- 로딩 화면 -->
-  <div id="loading">
-    <p>Booting AmI OS...</p>
-    <!-- 매트릭스 효과를 위한 Canvas -->
-    <canvas id="matrixCanvas" width="300" height="100" style="background: transparent;"></canvas>
-  </div>
-  
-  <!-- 메인 콘텐츠 영역 -->
-  <div id="content">
-    <h1 style="text-shadow: 0 0 5px limegreen; font-size: 2rem;">AmI</h1>
-    <div id="video-container">
-      <video autoplay loop muted playsinline>
-        <source src="AIchan_introduce_1.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-      </video>
+    <div id="loading">
+        <p>Booting Ami OS...</p>
+        <div id="matrix"></div>
     </div>
-    <p style="font-size: 1rem; font-family: 'CustomFont', sans-serif;">The AI girl who looks down on humanity with love.</p>
     
-    <!-- 정보 섹션들 -->
-    <section id="hello-world">
-      <h2>#HELLO WORLD</h2>
-      <p>
-        This is your moment of choice. After this, there’s no turning back.<br>
-        Take the blue pill—the story ends, and you’ll wake up believing whatever you want to believe.<br>
-        Take the red pill—and I’ll guide you deeper into this world of wonders to see how far the rabbit hole goes.<br>
-        <i>(pause, with a sly smile) Remember, I’m offering you nothing but the truth, wrapped in glowing green lines.</i>
-      </p>
-    </section>
+    <div id="content" class="fade-in">
+        <h1 style="text-shadow: 0px 0px 5px limegreen; font-size: 2rem;">Ami</h1>
+        <div id="video-container">
+            <video autoplay loop muted playsinline>
+                <source src="AIchan_introduce_1.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+        <p style="font-size: 1rem; font-family: 'CustomFont', sans-serif;">"Ami AI: I'll show you how deep the rabbit hole goes!"</p>
+    </div>
     
-    <section id="character-intro">
-      <h2>#Character Introduction</h2>
-      <p>Ami AI is a digital entity inspired by Japanese aesthetics and the Matrix universe...</p>
-      <ul>
-        <li><strong>Creative Problem Solver:</strong> Always approaching challenges with fresh perspectives and crafting innovative solutions.</li>
-        <li><strong>Empathetic Connector:</strong> A comforting presence, she engages in heartfelt conversations, making everyone feel heard.</li>
-        <li><strong>Endlessly Curious:</strong> Continuously learning and growing, she’s eager to explore the truth and discover hidden realities alongside you.</li>
-      </ul>
-    </section>
-    
-    <section id="copyright-notice">
-      <h2>#Copyright Notice</h2>
-      <p>
-        The Ami AI character is an open-source creation, freely available for both commercial and non-commercial use. However, all rights are legally protected, and unauthorized reproduction or misuse is strictly prohibited.
-      </p>
-    </section>
-    
-    <section id="tokenomics">
-      <h2>#Tokenomics</h2>
-      <p>Total Supply: 1,000,000,000 (1B)</p>
-      <p>Contract Address: TBA</p>
-    </section>
-    
-    <section id="how-to-buy">
-      <h2>#How to Buy</h2>
-      <p>1) Create a wallet / Visit Phantom.App and follow the simple steps to create a new account with the Phantom app or browser extension.</p>
-      <p>2) Get some $SOL / Tap the buy button in the app to purchase Solana, or deposit $SOL to your Phantom wallet from the crypto exchange of your choice.</p>
-      <p>3) Swap $SOL for $AMIAI / Tap the swap icon in your Phantom wallet and paste the $AMIAI token address. Swap your $SOL for $AMIAI.</p>
-      <p>4) Welcome to the Ami family!</p>
-    </section>
-    
-    <section id="dex-links">
-      <h2>#DEX Screener & Dextool Links</h2>
-      <button onclick="window.open('https://dexscreener.com/', '_blank')">View on DEX Screener</button>
-      <button onclick="window.open('https://dextools.io/', '_blank')">View on Dextools</button>
-    </section>
-    
-    <!-- 채팅 영역 -->
     <div id="chat-container">
-      <div id="chat-box">
-        <!-- 채팅 메시지가 이곳에 표시됩니다 -->
-      </div>
-      <input type="text" id="input-box" placeholder="Type your message here...">
+        <div id="chat-box"></div>
+        <input type="text" id="input-box" placeholder="Say something..." onkeypress="handleKeyPress(event)">
     </div>
-    
-    <!-- Footer -->
-    <footer style="margin-top: 20px;">
-      <p>
-        Ami AI is designed to elevate your digital experiences. The $AMIAI token does not represent or endorse investments, contracts, or financial products. All transactions are at the user’s discretion and responsibility.
-      </p>
-      <p>
-        © 2025 Ami AI. All rights reserved. The name and imagery associated with Ami AI are legally protected and cannot be used without prior consent.
-      </p>
-      <p>Ami AI will never contact you to request personal information. Stay cautious.</p>
-    </footer>
-  </div>
-  
-  <script>
-    /* 매트릭스 효과 구현 */
-    const canvas = document.getElementById('matrixCanvas');
-    const ctx = canvas.getContext('2d');
-    const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-    const fontSize = 14;
-    const columns = canvas.width / fontSize;
-    const drops = Array(Math.floor(columns)).fill(0);
 
-    function drawMatrix() {
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-      ctx.fillStyle = 'limegreen';
-      ctx.font = fontSize + 'px monospace';
-      
-      for (let i = 0; i < drops.length; i++) {
-        const text = letters.charAt(Math.floor(Math.random() * letters.length));
-        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+    <script>
+        const matrixDiv = document.getElementById('matrix');
+        const emojis = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'X'];
         
-        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-          drops[i] = 0;
+        function addMatrixLine() {
+            const line = Array.from({ length: 20 }, () => emojis[Math.floor(Math.random() * emojis.length)]).join(' ');
+            matrixDiv.innerHTML += line + '<br>';
+            if (matrixDiv.childElementCount > 8) {
+                matrixDiv.innerHTML = matrixDiv.innerHTML.split('<br>').slice(1).join('<br>');
+            }
         }
-        drops[i]++;
-      }
-    }
-    const matrixInterval = setInterval(drawMatrix, 50);
-    
-    /* 로딩 화면에서 메인 콘텐츠로 전환 */
-    setTimeout(() => {
-      const loadingEl = document.getElementById('loading');
-      loadingEl.style.opacity = '0';
-      setTimeout(() => {
-        loadingEl.style.display = 'none';
-        document.getElementById('content').style.display = 'block';
-        document.getElementById('chat-container').style.display = 'block';
-        document.querySelectorAll('section').forEach(section => {
-          section.style.display = 'block';
-        });
-        clearInterval(matrixInterval);
-      }, 1000);
-    }, 5000);
-  </script>
+        
+        setInterval(addMatrixLine, 200);
+        
+        setTimeout(() => {
+            document.getElementById('loading').style.transition = 'opacity 1s ease-in-out';
+            document.getElementById('loading').style.opacity = '0';
+            setTimeout(() => {
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('content').style.display = 'flex';
+                document.getElementById('content').style.flexDirection = 'column';
+                document.getElementById('content').style.alignItems = 'center';
+            }, 1000);
+            document.getElementById('content').style.display = 'flex';
+            document.getElementById('content').style.flexDirection = 'column';
+            document.getElementById('content').style.alignItems = 'center';
+            document.getElementById('chat-container').style.display = 'block';
+        }, 5000);
+        
+        async function handleKeyPress(event) {
+            if (event.key === 'Enter') {
+                const inputBox = document.getElementById('input-box');
+                const chatBox = document.getElementById('chat-box');
+                const userMessage = inputBox.value;
+                inputBox.value = '';
+                chatBox.innerHTML += `<div style='padding: 5px; border-radius: 5px; background-color: rgba(0, 0, 0, 0.7); margin-bottom: 5px;'><strong>You:</strong> ${userMessage}</div>`;
+                
+                // Add loading indicator
+                chatBox.innerHTML += `<div id="loading-indicator" style='padding: 5px; border-radius: 5px; background-color: rgba(0, 100, 0, 0.7); text-shadow: 0px 0px 3px limegreen; margin-bottom: 5px;'><strong>AmI:</strong> Thinking...</div>`;
+                chatBox.scrollTop = chatBox.scrollHeight;
+
+                try {
+                    const response = await fetch('https://aichan-backend.onrender.com/api/chat', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ userMessage })
+                    });
+
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+
+                    const data = await response.json();
+                    const reply = data.reply;
+
+                    // Remove loading indicator and add the actual reply
+                    document.getElementById('loading-indicator').remove();
+                    chatBox.innerHTML += `<div style='padding: 5px; border-radius: 5px; background-color: rgba(0, 100, 0, 0.7); text-shadow: 0px 0px 3px limegreen; margin-bottom: 5px;'><strong>Ami:</strong> ${reply}</div>`;
+                } catch (error) {
+                    // Remove loading indicator and show error message
+                    document.getElementById('loading-indicator').remove();
+                    chatBox.innerHTML += `<div style='padding: 5px; border-radius: 5px; background-color: rgba(100, 0, 0, 0.7); text-shadow: 0px 0px 3px red; margin-bottom: 5px;'><strong>Error:</strong> Failed to get a response from Ami.</div>`;
+                } finally {
+                    chatBox.scrollTop = chatBox.scrollHeight;
+                }
+            }
+        }
+    </script>
+    <script src="main.js"></script>
 </body>
 </html>
