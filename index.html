@@ -164,6 +164,9 @@
         height: auto;
         border-radius: 8px;
     }
+    section {
+        display: none;
+    }
 </style>
 </head>
 <body>
@@ -233,6 +236,20 @@
                 document.getElementById('loading').style.display = 'none';
                 document.getElementById('content').style.display = 'block';
                 document.getElementById('chat-container').style.display = 'block';
+                document.querySelectorAll('section').forEach(section => {
+                    section.style.display = 'block';
+                });
+            }, 1000);
+        }, 5000);
+            setTimeout(() => {
+            document.getElementById('loading').style.transition = 'opacity 1s ease-in-out';
+            document.getElementById('loading').style.opacity = '0';
+            setTimeout(() => {
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('content').style.display = 'block';
+                document.getElementById('chat-container').style.display = 'block';
+
+                // Reveal all new sections after loading ends
                 document.querySelectorAll('section').forEach(section => {
                     section.style.display = 'block';
                 });
