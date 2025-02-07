@@ -225,5 +225,19 @@
         <p>© 2025 Ami AI. All rights reserved. The name and imagery associated with Ami AI are legally protected and cannot be used without prior consent.</p>
         <p>Ami AI will never contact you to request personal information. Stay cautious.</p>
     </footer>
+    <script>
+        setTimeout(() => {
+            document.getElementById('loading').style.transition = 'opacity 1s ease-in-out';
+            document.getElementById('loading').style.opacity = '0';
+            setTimeout(() => {
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('content').style.display = 'block';
+                document.getElementById('chat-container').style.display = 'block';
+                document.querySelectorAll('section').forEach(section => {
+                    section.style.display = 'block';
+                });
+            }, 1000);
+        }, 5000);
+    </script>
 </body>
 </html>
