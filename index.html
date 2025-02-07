@@ -5,21 +5,60 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>Ami</title>
   <link rel="icon" type="image/x-icon" href="favicon.ico" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+    /* CSS Variables for easier color and style management */
+    :root {
+      --bg-color: #000;
+      --primary-color: #32CD32; /* lime green */
+      --glow-color: #32CD32;
+      --text-shadow: 0 0 8px var(--glow-color);
+      --border-color: var(--primary-color);
+    }
 
-    /* Base Styles */
+    /* Global resets and base styles */
+    * {
+      box-sizing: border-box;
+    }
     body {
-      background-color: black;
-      color: limegreen;
+      background: linear-gradient(45deg, #000, #121212);
+      animation: backgroundPulse 10s infinite alternate;
+      color: var(--primary-color);
       font-family: 'Press Start 2P', cursive;
       display: flex;
       flex-direction: column;
       align-items: center;
       margin: 0;
       text-align: center;
-      text-shadow: 0px 0px 8px limegreen;
+      text-shadow: var(--text-shadow);
       overflow-x: hidden;
+      transition: background 0.5s ease;
+    }
+
+    /* Animated background pulse */
+    @keyframes backgroundPulse {
+      0% { background: linear-gradient(45deg, #000, #121212); }
+      100% { background: linear-gradient(45deg, #121212, #000); }
+    }
+
+    /* Neon flicker effect for headings */
+    @keyframes neonFlicker {
+      0%, 18%, 22%, 25%, 53%, 57%, 100% {
+        text-shadow:
+          0 0 4px var(--glow-color),
+          0 0 11px var(--glow-color),
+          0 0 19px var(--glow-color),
+          0 0 40px var(--glow-color),
+          0 0 80px var(--glow-color);
+      }
+      20%, 24%, 55% {
+        text-shadow: none;
+      }
+    }
+    h1, h2, h3 {
+      animation: neonFlicker 1.5s infinite alternate;
     }
 
     /* Loading Screen */
@@ -29,14 +68,15 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background-color: black;
+      background-color: var(--bg-color);
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       font-size: 1.5rem;
-      text-shadow: 0px 0px 10px limegreen;
+      text-shadow: var(--text-shadow);
       z-index: 9999;
+      transition: opacity 1s ease-in-out;
     }
     #matrix {
       font-size: 1rem;
@@ -51,8 +91,17 @@
     #content {
       display: none;
       font-size: 1.2rem;
-      text-shadow: 0px 0px 10px limegreen;
+      text-shadow: var(--text-shadow);
       margin-top: 20px;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+    }
+    .fade-in {
+      animation: fadeIn 2s forwards;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
 
     /* Chat Container */
@@ -60,61 +109,69 @@
       display: none;
       width: 90%;
       max-width: 600px;
-      border: 4px double limegreen;
+      border: 4px double var(--border-color);
       padding: 15px;
-      background: black;
+      background: var(--bg-color);
       text-align: left;
-      box-shadow: 0px 0px 15px limegreen;
+      box-shadow: 0 0 15px var(--glow-color);
       font-size: 16px;
       border-radius: 12px;
       margin: 20px auto;
+      transition: transform 0.3s ease;
+    }
+    #chat-container:hover {
+      transform: scale(1.02);
     }
     #chat-box {
       height: 250px;
       overflow-y: auto;
-      border-bottom: 2px solid limegreen;
+      border-bottom: 2px solid var(--border-color);
       padding: 10px;
       background-color: rgba(0, 0, 0, 0.8);
       font-family: 'Press Start 2P', cursive;
-      color: limegreen;
-      text-shadow: 0px 0px 5px limegreen;
+      color: var(--primary-color);
+      text-shadow: 0 0 5px var(--primary-color);
       border-radius: 10px;
-      box-shadow: inset 0px 0px 10px limegreen;
+      box-shadow: inset 0 0 10px var(--glow-color);
+      transition: background 0.3s ease;
+    }
+    #chat-box:hover {
+      background-color: rgba(0, 0, 0, 0.9);
     }
     #input-box {
       width: calc(100% - 20px);
       padding: 10px;
       font-size: 16px;
-      border: 2px solid limegreen;
-      background: black;
-      color: limegreen;
+      border: 2px solid var(--border-color);
+      background: var(--bg-color);
+      color: var(--primary-color);
       outline: none;
       font-family: 'Press Start 2P', cursive;
       border-radius: 5px;
-      text-shadow: 0px 0px 5px limegreen;
-      box-shadow: inset 0px 0px 5px limegreen;
+      text-shadow: 0 0 5px var(--primary-color);
+      box-shadow: inset 0 0 5px var(--glow-color);
       margin-top: 10px;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
     }
-
-    /* Fade-in Animation */
-    .fade-in {
-      animation: fadeIn 2s ease-in-out;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
+    #input-box:focus {
+      border-color: var(--primary-color);
+      box-shadow: inset 0 0 10px var(--glow-color);
     }
 
     /* Video Container */
     #video-container {
       width: 90%;
       max-width: 360px;
-      border: 4px double limegreen;
+      border: 4px double var(--border-color);
       padding: 10px;
-      background: black;
-      box-shadow: 0px 0px 15px limegreen;
+      background: var(--bg-color);
+      box-shadow: 0 0 15px var(--glow-color);
       border-radius: 12px;
       margin: 0 auto;
+      transition: transform 0.3s ease;
+    }
+    #video-container:hover {
+      transform: scale(1.05);
     }
     video {
       width: 100%;
@@ -129,24 +186,28 @@
       margin: 40px auto;
       padding: 20px;
       background: rgba(0, 0, 0, 0.8);
-      border: 2px solid limegreen;
+      border: 2px solid var(--border-color);
       border-radius: 10px;
-      box-shadow: 0px 0px 10px limegreen;
+      box-shadow: 0 0 10px var(--glow-color);
       text-align: left;
-      text-shadow: 0px 0px 2px limegreen;
-      
+      text-shadow: 0 0 2px var(--primary-color);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .section:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0 20px var(--glow-color);
     }
     .section h2 {
       font-size: 1.8rem;
       margin-bottom: 10px;
-      text-shadow: 0px 0px 2px limegreen;
+      text-shadow: 0 0 2px var(--primary-color);
     }
     .section p,
     .section ul,
     .section ol {
       font-size: 1rem;
       line-height: 1.4;
-      text-shadow: 0px 0px 2px limegreen;
+      text-shadow: 0 0 2px var(--primary-color);
     }
     .section ul {
       list-style: none;
@@ -154,30 +215,31 @@
     }
     .section ul li::before {
       content: "▹ ";
-      color: limegreen;
+      color: var(--primary-color);
     }
     .section h3 {
-     font-size: 1rem;
-     margin-bottom: 8px;
-     text-shadow: 0px 0px 2px limegreen; /* Reduced glow */
+      font-size: 1rem;
+      margin-bottom: 8px;
+      text-shadow: 0 0 2px var(--primary-color);
     }
 
-    /* Button Styles for Dex Links */
+    /* Button Styles */
     .button {
       display: inline-block;
       padding: 10px 20px;
       margin: 10px;
-      border: 2px solid limegreen;
-      color: limegreen;
+      border: 2px solid var(--border-color);
+      color: var(--primary-color);
       text-decoration: none;
       font-family: 'Press Start 2P', cursive;
-      background: black;
+      background: var(--bg-color);
       border-radius: 5px;
-      transition: background 0.3s ease;
+      transition: background 0.3s ease, transform 0.3s ease;
     }
     .button:hover {
-      background: limegreen;
-      color: black;
+      background: var(--primary-color);
+      color: var(--bg-color);
+      transform: scale(1.05);
     }
 
     /* Responsive Adjustments */
@@ -230,7 +292,7 @@
 
   <!-- Main Content -->
   <div id="content" class="fade-in">
-    <h1 style="text-shadow: 0px 0px 5px limegreen; font-size: 2rem;">Ami</h1>
+    <h1 style="font-size: 2rem;">Ami</h1>
     <div id="video-container">
       <video autoplay loop muted playsinline>
         <source src="AIchan_introduce_1.mp4" type="video/mp4" />
@@ -238,7 +300,7 @@
       </video>
     </div>
     <p style="font-size: 1rem; font-family: 'CustomFont', sans-serif;">
-      "I'll show you how deep the rabbit hole goes!"
+      "Ami AI: I'll show you how deep the rabbit hole goes!"
     </p>
   </div>
 
@@ -298,12 +360,12 @@
   </section>
 
   <!-- Dex Screener & Dextool Section -->
-<section id="dex-links" class="section">
-  <h2>Dex Screener & Dextool</h2>
-  <p>Check out our token on Dex Screener and Dextool for more information and analytics:</p>
-  <a href="https://dexscreener.com/" target="_blank" class="button">Dex Screener</a>
-  <a href="https://www.dextools.io/" target="_blank" class="button">Dextool</a>
-</section>
+  <section id="dex-links" class="section">
+    <h2>Dex Screener & Dextool</h2>
+    <p>Check out our token on Dex Screener and Dextool for more information and analytics:</p>
+    <a href="https://dexscreener.com/" target="_blank" class="button">Dex Screener</a>
+    <a href="https://www.dextools.io/" target="_blank" class="button">Dextool</a>
+  </section>
 
   <!-- Footer Section -->
   <footer class="section">
@@ -339,7 +401,6 @@
       const contentEl = document.getElementById('content');
       const chatEl = document.getElementById('chat-container');
 
-      loadingEl.style.transition = 'opacity 1s ease-in-out';
       loadingEl.style.opacity = '0';
 
       setTimeout(() => {
@@ -347,6 +408,7 @@
         contentEl.style.display = 'flex';
         contentEl.style.flexDirection = 'column';
         contentEl.style.alignItems = 'center';
+        contentEl.style.opacity = '1';
         chatEl.style.display = 'block';
         // Scroll to the top immediately after content is visible
         window.scrollTo(0, 0);
@@ -363,7 +425,7 @@
         chatBox.innerHTML += `<div style='padding: 5px; border-radius: 5px; background-color: rgba(0, 0, 0, 0.7); margin-bottom: 5px;'><strong>You:</strong> ${userMessage}</div>`;
 
         // Add loading indicator for Ami's response
-        chatBox.innerHTML += `<div id="loading-indicator" style='padding: 5px; border-radius: 5px; background-color: rgba(0, 100, 0, 0.7); text-shadow: 0px 0px 3px limegreen; margin-bottom: 5px;'><strong>Ami:</strong> Thinking...</div>`;
+        chatBox.innerHTML += `<div id="loading-indicator" style='padding: 5px; border-radius: 5px; background-color: rgba(0, 100, 0, 0.7); text-shadow: 0 0 3px var(--glow-color); margin-bottom: 5px;'><strong>Ami:</strong> Thinking...</div>`;
         chatBox.scrollTop = chatBox.scrollHeight;
 
         try {
@@ -382,11 +444,11 @@
 
           // Remove loading indicator and display Ami's reply
           document.getElementById('loading-indicator').remove();
-          chatBox.innerHTML += `<div style='padding: 5px; border-radius: 5px; background-color: rgba(0, 100, 0, 0.7); text-shadow: 0px 0px 3px limegreen; margin-bottom: 5px;'><strong>Ami:</strong> ${reply}</div>`;
+          chatBox.innerHTML += `<div style='padding: 5px; border-radius: 5px; background-color: rgba(0, 100, 0, 0.7); text-shadow: 0 0 3px var(--glow-color); margin-bottom: 5px;'><strong>Ami:</strong> ${reply}</div>`;
         } catch (error) {
           // Remove loading indicator and display error message
           document.getElementById('loading-indicator').remove();
-          chatBox.innerHTML += `<div style='padding: 5px; border-radius: 5px; background-color: rgba(100, 0, 0, 0.7); text-shadow: 0px 0px 3px red; margin-bottom: 5px;'><strong>Error:</strong> Failed to get a response from Ami.</div>`;
+          chatBox.innerHTML += `<div style='padding: 5px; border-radius: 5px; background-color: rgba(100, 0, 0, 0.7); text-shadow: 0 0 3px red; margin-bottom: 5px;'><strong>Error:</strong> Failed to get a response from Ami.</div>`;
         } finally {
           chatBox.scrollTop = chatBox.scrollHeight;
         }
