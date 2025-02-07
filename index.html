@@ -1,141 +1,223 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Existing meta tags -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Ami</title>
+  <link rel="icon" type="image/x-icon" href="favicon.ico" />
   <style>
-    :root {
-      --neon-green: #0F0;
-      --dark-bg: #000;
-      --section-glow: 0 0 15px var(--neon-green);
-    }
+    @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
+    /* Base Styles */
     body {
-      background: var(--dark-bg);
-      color: var(--neon-green);
+      background-color: black;
+      color: limegreen;
       font-family: 'Press Start 2P', cursive;
-      line-height: 1.5;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 0;
+      text-align: center;
+      text-shadow: 0px 0px 8px limegreen;
+      overflow-x: hidden;
     }
 
-    /* Enhanced Loading Screen */
+    /* Loading Screen */
     #loading {
-      background: radial-gradient(ellipse at center, #001100 0%, #000 100%);
-      animation: scanlines 1s linear infinite;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: black;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.5rem;
+      text-shadow: 0px 0px 10px limegreen;
+      z-index: 9999;
     }
-
-    @keyframes scanlines {
-      from { background-position: 0 0; }
-      to { background-position: 0 10px; }
-    }
-
     #matrix {
-      background-image: linear-gradient(to bottom, 
-        transparent 0%, 
-        rgba(0, 255, 0, 0.1) 10%,
-        transparent 20%);
-    }
-
-    /* Modernized Sections */
-    .section {
-      background: linear-gradient(145deg, #001100, #000);
-      border: 1px solid var(--neon-green);
-      box-shadow: var(--section-glow),
-                  inset 0 0 10px rgba(0, 255, 0, 0.2);
-      transition: transform 0.3s ease;
-    }
-
-    .section:hover {
-      transform: translateY(-5px);
-    }
-
-    /* Improved Chat Interface */
-    #chat-container {
-      background: rgba(0, 20, 0, 0.9);
-      border-image: linear-gradient(45deg, #0F0, #090) 1;
-      backdrop-filter: blur(5px);
-    }
-
-    #chat-box {
-      scrollbar-width: thin;
-      scrollbar-color: var(--neon-green) #000;
-    }
-
-    #chat-box::-webkit-scrollbar {
-      width: 5px;
-    }
-
-    #chat-box::-webkit-scrollbar-thumb {
-      background: var(--neon-green);
-      border-radius: 3px;
-    }
-
-    /* Enhanced Input Fields */
-    #input-box {
-      background: rgba(0, 30, 0, 0.8);
-      transition: all 0.3s ease;
-    }
-
-    #input-box:focus {
-      box-shadow: 0 0 15px var(--neon-green);
-      border-color: #0F0;
-    }
-
-    /* Animated Buttons */
-    .button {
-      position: relative;
+      font-size: 1rem;
+      white-space: pre-wrap;
+      line-height: 1.2;
+      margin-top: 10px;
+      height: 100px;
       overflow: hidden;
-      transition: 0.4s;
     }
 
-    .button::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: linear-gradient(45deg, 
-        transparent, 
-        rgba(0, 255, 0, 0.2), 
-        transparent);
-      transform: rotate(45deg);
-      animation: buttonGlow 3s infinite;
+    /* Main Content */
+    #content {
+      display: none;
+      font-size: 1.2rem;
+      text-shadow: 0px 0px 10px limegreen;
+      margin-top: 20px;
     }
 
-    @keyframes buttonGlow {
-      0% { left: -50%; }
-      100% { left: 150%; }
+    /* Chat Container */
+    #chat-container {
+      display: none;
+      width: 90%;
+      max-width: 600px;
+      border: 4px double limegreen;
+      padding: 15px;
+      background: black;
+      text-align: left;
+      box-shadow: 0px 0px 15px limegreen;
+      font-size: 16px;
+      border-radius: 12px;
+      margin: 20px auto;
+    }
+    #chat-box {
+      height: 250px;
+      overflow-y: auto;
+      border-bottom: 2px solid limegreen;
+      padding: 10px;
+      background-color: rgba(0, 0, 0, 0.8);
+      font-family: 'Press Start 2P', cursive;
+      color: limegreen;
+      text-shadow: 0px 0px 5px limegreen;
+      border-radius: 10px;
+      box-shadow: inset 0px 0px 10px limegreen;
+    }
+    #input-box {
+      width: calc(100% - 20px);
+      padding: 10px;
+      font-size: 16px;
+      border: 2px solid limegreen;
+      background: black;
+      color: limegreen;
+      outline: none;
+      font-family: 'Press Start 2P', cursive;
+      border-radius: 5px;
+      text-shadow: 0px 0px 5px limegreen;
+      box-shadow: inset 0px 0px 5px limegreen;
+      margin-top: 10px;
     }
 
-    /* Video Container Enhancement */
+    /* Fade-in Animation */
+    .fade-in {
+      animation: fadeIn 2s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    /* Video Container */
     #video-container {
-      perspective: 1000px;
+      width: 90%;
+      max-width: 360px;
+      border: 4px double limegreen;
+      padding: 10px;
+      background: black;
+      box-shadow: 0px 0px 15px limegreen;
+      border-radius: 12px;
+      margin: 0 auto;
     }
-
     video {
-      transform-style: preserve-3d;
-      animation: float 3s ease-in-out infinite;
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
     }
 
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
+    /* Section Styles */
+    .section {
+      width: 90%;
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.8);
+      border: 2px solid limegreen;
+      border-radius: 10px;
+      box-shadow: 0px 0px 10px limegreen;
+      text-align: left;
+      text-shadow: 0px 0px 2px limegreen;
+      
+    }
+    .section h2 {
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+      text-shadow: 0px 0px 2px limegreen;
+    }
+    .section p,
+    .section ul,
+    .section ol {
+      font-size: 1rem;
+      line-height: 1.4;
+      text-shadow: 0px 0px 2px limegreen;
+    }
+    .section ul {
+      list-style: none;
+      padding: 0;
+    }
+    .section ul li::before {
+      content: "▹ ";
+      color: limegreen;
+    }
+    .section h3 {
+     font-size: 1rem;
+     margin-bottom: 8px;
+     text-shadow: 0px 0px 2px limegreen; /* Reduced glow */
     }
 
-    /* Responsive Typography */
+    /* Button Styles for Dex Links */
+    .button {
+      display: inline-block;
+      padding: 10px 20px;
+      margin: 10px;
+      border: 2px solid limegreen;
+      color: limegreen;
+      text-decoration: none;
+      font-family: 'Press Start 2P', cursive;
+      background: black;
+      border-radius: 5px;
+      transition: background 0.3s ease;
+    }
+    .button:hover {
+      background: limegreen;
+      color: black;
+    }
+
+    /* Responsive Adjustments */
     @media (max-width: 768px) {
-      body { font-size: 14px; }
-      h1 { font-size: 1.5rem; }
-      h2 { font-size: 1.2rem; }
-      #chat-box { height: 180px; }
-    }
-
-    /* Hover Effects */
-    li::before {
-      transition: transform 0.3s ease;
-    }
-
-    li:hover::before {
-      transform: scale(1.2);
+      #loading {
+        font-size: 1.2rem;
+      }
+      body {
+        height: auto;
+        padding: 10px;
+      }
+      #content {
+        font-size: 1rem;
+        padding: 10px;
+      }
+      video {
+        width: 100%;
+        max-width: 360px;
+        height: auto;
+        border-radius: 8px;
+      }
+      #chat-container {
+        width: 95%;
+        max-width: none;
+        font-size: 14px;
+        padding: 10px;
+      }
+      #chat-box {
+        height: 200px;
+        font-size: 12px;
+      }
+      #input-box {
+        font-size: 16px;
+        padding: 8px;
+      }
+      .section {
+        width: 95%;
+        margin: 20px auto;
+        padding: 15px;
+      }
     }
   </style>
 </head>
@@ -237,38 +319,80 @@
   </footer>
 
   <script>
-    // Add parallax effect to sections
-    document.addEventListener('mousemove', (e) => {
-      const sections = document.querySelectorAll('.section');
-      const mouseX = e.clientX;
-      const mouseY = e.clientY;
+    // Matrix effect: add random letters
+    const matrixDiv = document.getElementById('matrix');
+    const emojis = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'X'];
+    function addMatrixLine() {
+      const line = Array.from({ length: 20 }, () =>
+        emojis[Math.floor(Math.random() * emojis.length)]
+      ).join(' ');
+      matrixDiv.innerHTML += line + '<br>';
+      if (matrixDiv.childElementCount > 8) {
+        matrixDiv.innerHTML = matrixDiv.innerHTML.split('<br>').slice(1).join('<br>');
+      }
+    }
+    setInterval(addMatrixLine, 200);
 
-      sections.forEach(section => {
-        const rect = section.getBoundingClientRect();
-        const centerX = rect.left + rect.width/2;
-        const centerY = rect.top + rect.height/2;
-        
-        const rotateX = (mouseY - centerY) * 0.02;
-        const rotateY = (mouseX - centerX) * -0.02;
-        
-        section.style.transform = `perspective(1000px) 
-          rotateX(${rotateX}deg) 
-          rotateY(${rotateY}deg) 
-          translateZ(10px)`;
-      });
-    });
+    // Hide loading screen and reveal content after 5 seconds
+    setTimeout(() => {
+      const loadingEl = document.getElementById('loading');
+      const contentEl = document.getElementById('content');
+      const chatEl = document.getElementById('chat-container');
 
-    // Add dynamic background effects
-    document.body.addEventListener('mousemove', (e) => {
-      const x = e.clientX / window.innerWidth;
-      const y = e.clientY / window.innerHeight;
-      
-      document.body.style.background = `radial-gradient(
-        circle at ${x * 100}% ${y * 100}%, 
-        #001100, 
-        #000
-      )`;
-    });
+      loadingEl.style.transition = 'opacity 1s ease-in-out';
+      loadingEl.style.opacity = '0';
+
+      setTimeout(() => {
+        loadingEl.style.display = 'none';
+        contentEl.style.display = 'flex';
+        contentEl.style.flexDirection = 'column';
+        contentEl.style.alignItems = 'center';
+        chatEl.style.display = 'block';
+        // Scroll to the top immediately after content is visible
+        window.scrollTo(0, 0);
+      }, 1000);
+    }, 5000);
+
+    // Chat input handler
+    async function handleKeyPress(event) {
+      if (event.key === 'Enter') {
+        const inputBox = document.getElementById('input-box');
+        const chatBox = document.getElementById('chat-box');
+        const userMessage = inputBox.value;
+        inputBox.value = '';
+        chatBox.innerHTML += `<div style='padding: 5px; border-radius: 5px; background-color: rgba(0, 0, 0, 0.7); margin-bottom: 5px;'><strong>You:</strong> ${userMessage}</div>`;
+
+        // Add loading indicator for Ami's response
+        chatBox.innerHTML += `<div id="loading-indicator" style='padding: 5px; border-radius: 5px; background-color: rgba(0, 100, 0, 0.7); text-shadow: 0px 0px 3px limegreen; margin-bottom: 5px;'><strong>Ami:</strong> Thinking...</div>`;
+        chatBox.scrollTop = chatBox.scrollHeight;
+
+        try {
+          const response = await fetch('https://aichan-backend.onrender.com/api/chat', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ userMessage })
+          });
+
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+
+          const data = await response.json();
+          const reply = data.reply;
+
+          // Remove loading indicator and display Ami's reply
+          document.getElementById('loading-indicator').remove();
+          chatBox.innerHTML += `<div style='padding: 5px; border-radius: 5px; background-color: rgba(0, 100, 0, 0.7); text-shadow: 0px 0px 3px limegreen; margin-bottom: 5px;'><strong>Ami:</strong> ${reply}</div>`;
+        } catch (error) {
+          // Remove loading indicator and display error message
+          document.getElementById('loading-indicator').remove();
+          chatBox.innerHTML += `<div style='padding: 5px; border-radius: 5px; background-color: rgba(100, 0, 0, 0.7); text-shadow: 0px 0px 3px red; margin-bottom: 5px;'><strong>Error:</strong> Failed to get a response from Ami.</div>`;
+        } finally {
+          chatBox.scrollTop = chatBox.scrollHeight;
+        }
+      }
+    }
   </script>
+  <script src="main.js"></script>
 </body>
 </html>
