@@ -1,21 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
-  />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Ami</title>
-  <link rel="icon" type="image/x-icon" href="favicon.ico" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
-    rel="stylesheet"
-  />
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
   <style>
-    /* Base styles and font imports */
+    @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+    
+    /* Base styles */
     body {
       background-color: black;
       color: limegreen;
@@ -25,30 +18,26 @@
       align-items: center;
       margin: 0;
       text-align: center;
-      overflow-x: hidden;
       text-shadow: 0px 0px 8px limegreen;
+      overflow-x: hidden;
     }
 
-    /* Loading screen styles */
+    /* Loading Screen */
     #loading {
-    position: fixed;       /* Fixed positioning to cover the viewport */
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    font-size: 1.5rem;
-    overflow: hidden;
-    text-shadow: 0px 0px 10px limegreen;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: black; /* Ensure a solid background */
-    z-index: 9999;           /* High z-index to stay on top */
-}
-
-
+      position: fixed; /* Fixed positioning to cover entire viewport */
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: black; /* Solid background so nothing underneath is visible */
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.5rem;
+      text-shadow: 0px 0px 10px limegreen;
+      z-index: 9999;
+    }
     #matrix {
       font-size: 1rem;
       white-space: pre-wrap;
@@ -58,33 +47,15 @@
       overflow: hidden;
     }
 
-    /* Content area styles */
+    /* Main Content */
     #content {
       display: none;
       font-size: 1.2rem;
       text-shadow: 0px 0px 10px limegreen;
-      margin-top: 80px; /* Leave space for loading transition */
-      padding: 0 10px;
+      margin-top: 20px;
     }
-
-    /* Video container styles */
-    #video-container {
-      width: 90%;
-      max-width: 360px;
-      border: 4px double limegreen;
-      padding: 10px;
-      background: black;
-      box-shadow: 0px 0px 15px limegreen;
-      border-radius: 12px;
-      margin: 0 auto;
-    }
-    video {
-      width: 100%;
-      height: auto;
-      border-radius: 8px;
-    }
-
-    /* Chat container styles */
+    
+    /* Chat Container */
     #chat-container {
       display: none;
       width: 90%;
@@ -125,65 +96,31 @@
       margin-top: 10px;
     }
 
-    /* New Section styles */
-    .section {
-      width: 90%;
-      max-width: 800px;
-      margin: 40px auto;
-      padding: 20px;
-      background: rgba(0, 0, 0, 0.8);
-      border: 2px solid limegreen;
-      border-radius: 10px;
-      box-shadow: 0px 0px 10px limegreen;
-      text-align: center;
-    }
-    .section h2 {
-      font-size: 1.8rem;
-      margin-bottom: 10px;
-    }
-    .section p,
-    .section ul {
-      font-size: 1rem;
-      line-height: 1.4;
-    }
-    .section ul {
-      list-style: none;
-      padding: 0;
-    }
-    .section ul li::before {
-      content: "▹ ";
-      color: limegreen;
-    }
-
-    footer {
-      margin: 20px 0;
-      text-align: center;
-      font-size: 0.8rem;
-    }
-    footer a {
-      color: limegreen;
-      text-decoration: none;
-    }
-
-    /* Fade-in animation */
     .fade-in {
       animation: fadeIn 2s ease-in-out;
     }
     @keyframes fadeIn {
-      from {
-        opacity: 0;
-      }
-      to {
-        opacity: 1;
-      }
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
-
-    /* Mobile responsiveness */
+    pre {
+      font-size: 14px;
+      line-height: 1.2;
+    }
+    @font-face {
+      font-family: 'CustomFont';
+      src: url('MonsterFriendFore.woff2') format('woff2'),
+           url('MonsterFriendFore.woff') format('woff');
+      font-weight: normal;
+      font-style: normal;
+    }
     @media (max-width: 768px) {
       #loading {
         font-size: 1.2rem;
+        transform: translate(-50%, -50%);
       }
       body {
+        height: auto;
         padding: 10px;
       }
       #content {
@@ -210,20 +147,23 @@
         font-size: 16px;
         padding: 8px;
       }
-      .section {
-        width: 95%;
-        margin: 20px auto;
-        padding: 15px;
-      }
     }
-
-    /* Custom font-face example */
-    @font-face {
-      font-family: 'CustomFont';
-      src: url('MonsterFriendFore.woff2') format('woff2'),
-           url('MonsterFriendFore.woff') format('woff');
-      font-weight: normal;
-      font-style: normal;
+    
+    /* Video Container */
+    #video-container {
+      width: 90%;
+      max-width: 360px;
+      border: 4px double limegreen;
+      padding: 10px;
+      background: black;
+      box-shadow: 0px 0px 15px limegreen;
+      border-radius: 12px;
+      margin: 0 auto;
+    }
+    video {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
     }
   </style>
 </head>
@@ -233,13 +173,13 @@
     <p>Booting Ami OS...</p>
     <div id="matrix"></div>
   </div>
-
+  
   <!-- Main Content -->
   <div id="content" class="fade-in">
     <h1 style="text-shadow: 0px 0px 5px limegreen; font-size: 2rem;">Ami</h1>
     <div id="video-container">
       <video autoplay loop muted playsinline>
-        <source src="AIchan_introduce_1.mp4" type="video/mp4" />
+        <source src="AIchan_introduce_1.mp4" type="video/mp4">
         Your browser does not support the video tag.
       </video>
     </div>
@@ -247,137 +187,69 @@
       "Ami AI: I'll show you how deep the rabbit hole goes!"
     </p>
   </div>
-
+  
   <!-- Chat Section -->
   <div id="chat-container">
     <div id="chat-box"></div>
-    <input
-      type="text"
-      id="input-box"
-      placeholder="Say something..."
-      onkeypress="handleKeyPress(event)"
-    />
+    <input type="text" id="input-box" placeholder="Say something..." onkeypress="handleKeyPress(event)">
   </div>
 
-  <!-- New Sections -->
-  <section id="about" class="section">
-    <h2>About Ami</h2>
-    <p>
-      Ami is a dynamic AI interface designed to engage users with an immersive
-      retro experience. Enjoy real-time chat interactions, vibrant visuals, and
-      a playful design that takes you back in time.
-    </p>
-  </section>
-
-  <section id="features" class="section">
-    <h2>Features</h2>
-    <ul>
-      <li>Interactive real-time chat</li>
-      <li>Immersive video introductions</li>
-      <li>Animated loading sequences</li>
-      <li>Responsive design for all devices</li>
-    </ul>
-  </section>
-
-  <section id="contact" class="section">
-    <h2>Contact</h2>
-    <p>
-      Have questions or feedback? Feel free to reach out:
-    </p>
-    <p>
-      Email:
-      <a href="mailto:ami@example.com">ami@example.com</a>
-    </p>
-  </section>
-
-  <!-- Footer -->
-  <footer>
-    <p>&copy; 2025 Ami. All rights reserved.</p>
-  </footer>
-
-  <!-- JavaScript -->
   <script>
+    // Matrix effect: add random letters
     const matrixDiv = document.getElementById('matrix');
-    const emojis = [
-      'A',
-      'B',
-      'C',
-      'D',
-      'E',
-      'F',
-      'G',
-      'H',
-      'I',
-      'J',
-      'K',
-      'L',
-      'M',
-      'N',
-      'O',
-      'P',
-      'X'
-    ];
-
+    const emojis = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'X'];
     function addMatrixLine() {
       const line = Array.from({ length: 20 }, () =>
         emojis[Math.floor(Math.random() * emojis.length)]
       ).join(' ');
       matrixDiv.innerHTML += line + '<br>';
       if (matrixDiv.childElementCount > 8) {
-        matrixDiv.innerHTML = matrixDiv.innerHTML
-          .split('<br>')
-          .slice(1)
-          .join('<br>');
+        matrixDiv.innerHTML = matrixDiv.innerHTML.split('<br>').slice(1).join('<br>');
       }
     }
-
     setInterval(addMatrixLine, 200);
-
-    // Transition from loading screen to main content and chat
+    
+    // After 5 seconds, fade out the loading screen and show content
     setTimeout(() => {
       const loadingEl = document.getElementById('loading');
       const contentEl = document.getElementById('content');
       const chatEl = document.getElementById('chat-container');
-
+      
+      // Fade out loading
       loadingEl.style.transition = 'opacity 1s ease-in-out';
       loadingEl.style.opacity = '0';
-
+      
+      // After fade out, hide the loading and display the content
       setTimeout(() => {
         loadingEl.style.display = 'none';
         contentEl.style.display = 'flex';
         contentEl.style.flexDirection = 'column';
         contentEl.style.alignItems = 'center';
         chatEl.style.display = 'block';
-      }
-        // Force the page to scroll to the top
+        // Immediately scroll to the top after content is visible
         window.scrollTo(0, 0);
-    }, 1000);
-}, 5000);
-
-    // Chat input handling function
+      }, 1000);
+    }, 5000);
+    
+    // Chat input handler
     async function handleKeyPress(event) {
       if (event.key === 'Enter') {
         const inputBox = document.getElementById('input-box');
         const chatBox = document.getElementById('chat-box');
         const userMessage = inputBox.value;
         inputBox.value = '';
-
-        // Append the user's message
-        chatBox.innerHTML += `<div style="padding: 5px; border-radius: 5px; background-color: rgba(0, 0, 0, 0.7); margin-bottom: 5px;"><strong>You:</strong> ${userMessage}</div>`;
-
-        // Add a loading indicator for Ami's response
-        chatBox.innerHTML += `<div id="loading-indicator" style="padding: 5px; border-radius: 5px; background-color: rgba(0, 100, 0, 0.7); text-shadow: 0px 0px 3px limegreen; margin-bottom: 5px;"><strong>Ami:</strong> Thinking...</div>`;
+        chatBox.innerHTML += `<div style='padding: 5px; border-radius: 5px; background-color: rgba(0, 0, 0, 0.7); margin-bottom: 5px;'><strong>You:</strong> ${userMessage}</div>`;
+        
+        // Add a loading indicator for Ami's reply
+        chatBox.innerHTML += `<div id="loading-indicator" style='padding: 5px; border-radius: 5px; background-color: rgba(0, 100, 0, 0.7); text-shadow: 0px 0px 3px limegreen; margin-bottom: 5px;'><strong>Ami:</strong> Thinking...</div>`;
         chatBox.scrollTop = chatBox.scrollHeight;
 
         try {
-          const response = await fetch(
-            'https://aichan-backend.onrender.com/api/chat',
-            {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ userMessage })
-            }
-          );
+          const response = await fetch('https://aichan-backend.onrender.com/api/chat', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ userMessage })
+          });
 
           if (!response.ok) {
             throw new Error('Network response was not ok');
@@ -386,19 +258,20 @@
           const data = await response.json();
           const reply = data.reply;
 
-          // Remove loading indicator and display the reply
+          // Remove loading indicator and display reply
           document.getElementById('loading-indicator').remove();
-          chatBox.innerHTML += `<div style="padding: 5px; border-radius: 5px; background-color: rgba(0, 100, 0, 0.7); text-shadow: 0px 0px 3px limegreen; margin-bottom: 5px;"><strong>Ami:</strong> ${reply}</div>`;
+          chatBox.innerHTML += `<div style='padding: 5px; border-radius: 5px; background-color: rgba(0, 100, 0, 0.7); text-shadow: 0px 0px 3px limegreen; margin-bottom: 5px;'><strong>Ami:</strong> ${reply}</div>`;
         } catch (error) {
-          // Remove loading indicator and display an error message
+          // Remove loading indicator and show error message
           document.getElementById('loading-indicator').remove();
-          chatBox.innerHTML += `<div style="padding: 5px; border-radius: 5px; background-color: rgba(100, 0, 0, 0.7); text-shadow: 0px 0px 3px red; margin-bottom: 5px;"><strong>Error:</strong> Failed to get a response from Ami.</div>`;
+          chatBox.innerHTML += `<div style='padding: 5px; border-radius: 5px; background-color: rgba(100, 0, 0, 0.7); text-shadow: 0px 0px 3px red; margin-bottom: 5px;'><strong>Error:</strong> Failed to get a response from Ami.</div>`;
         } finally {
           chatBox.scrollTop = chatBox.scrollHeight;
         }
       }
     }
   </script>
+  <!-- If main.js is not needed for the loading process, you may consider commenting it out -->
   <script src="main.js"></script>
 </body>
 </html>
