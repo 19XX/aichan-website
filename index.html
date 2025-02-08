@@ -28,7 +28,7 @@
       padding: 0;
       box-sizing: border-box;
     }
-    /* Updated body styling: column layout so footer is below */
+    /* Updated body styling: allow vertical scrolling so the footer is reachable */
     body {
       background-color: var(--background-color);
       color: var(--primary-color);
@@ -36,8 +36,7 @@
       flex-direction: column;
       align-items: center;
       min-height: 100vh;
-      overflow: hidden;
-      /* A custom SVG cursor (adjust URL as needed) */
+      overflow-y: auto;  /* Changed from hidden to auto */
       cursor: url('./assets/mouse.svg'), auto;
     }
     
@@ -466,7 +465,7 @@
       setTimeout(() => {
         loadingEl.style.display = 'none';
         mainContainer.style.display = 'grid';
-        // Delay footer appearance (e.g., 2 seconds after main container loads)
+        // Delay footer appearance (2 seconds after main container loads)
         setTimeout(() => {
           document.querySelector('footer').style.display = 'block';
         }, 2000);
