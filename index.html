@@ -162,7 +162,10 @@
       content: "▹ ";
       color: var(--primary-color);
     }
-    /* Note: Removed background image styling from #hello-world */
+    /* Remove any background image from #hello-world so it appears standard */
+    #hello-world {
+      background-color: transparent;
+    }
     
     /*––––––––––––––––––––––––––––––––––––––––––––––
       Video & Chat Containers
@@ -341,9 +344,9 @@
         <input type="text" id="input-box" placeholder="Say something..." onkeypress="handleKeyPress(event)" />
       </div>
       
-      <!-- Additional Image placed between Chat and HELLO WORLD Section -->
+      <!-- NEW: Insert hello-world-bg.png above the HELLO WORLD section -->
       <div style="text-align: center; margin: 1rem 0;">
-        <img src="https://raw.githubusercontent.com/19XX/aichan-website/main/inserted-image.png" alt="Decorative Image" style="max-width: 100%; height: auto;">
+        <img src="https://raw.githubusercontent.com/19XX/aichan-website/main/hello-world-bg.png" alt="Hello World Background" style="max-width: 100%; height: auto;">
       </div>
       
       <!-- HELLO WORLD Section -->
