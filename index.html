@@ -28,7 +28,7 @@
       padding: 0;
       box-sizing: border-box;
     }
-    /* Updated body styling: use column layout so footer is below */
+    /* Updated body styling: column layout so footer is below */
     body {
       background-color: var(--background-color);
       color: var(--primary-color);
@@ -404,8 +404,8 @@
     </main>
   </div>
   
-  <!-- Footer placed below the main container -->
-  <footer class="section" style="width: 90vw; margin-top: 1rem;">
+  <!-- Footer placed below the main container (initially hidden) -->
+  <footer class="section" style="width: 90vw; margin-top: 1rem; display: none;">
     <p>
       Ami AI is designed to elevate your digital experiences. The $AMIAI token does not represent or
       endorse investments, contracts, or financial products. All transactions are at the user’s
@@ -466,10 +466,14 @@
       setTimeout(() => {
         loadingEl.style.display = 'none';
         mainContainer.style.display = 'grid';
+        // Delay footer appearance (e.g., 2 seconds after main container loads)
+        setTimeout(() => {
+          document.querySelector('footer').style.display = 'block';
+        }, 2000);
       }, 1000);
     }, 5000);
     
-    // Chat input handler (existing code)
+    // Chat input handler
     async function handleKeyPress(event) {
       if (event.key === 'Enter') {
         const inputBox = document.getElementById('input-box');
@@ -499,7 +503,7 @@
       }
     }
     
-    // Smooth scrolling for navigation links within the main container
+    // Smooth scrolling for navigation links within main container
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function(e) {
         e.preventDefault();
