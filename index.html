@@ -36,7 +36,7 @@
       flex-direction: column;
       align-items: center;
       min-height: 100vh;
-      overflow-y: auto;  /* Changed from hidden to auto */
+      overflow-y: auto;  /* allow scrolling */
       cursor: url('./assets/mouse.svg'), auto;
     }
     
@@ -130,6 +130,7 @@
       overflow-y: auto;
       padding: 0.5rem;
     }
+    
     /*––––––––––––––––––––––––––––––––––––––––––––––
       Section Styles
     –––––––––––––––––––––––––––––––––––––––––––––––*/
@@ -160,6 +161,14 @@
     section ul li::before {
       content: "▹ ";
       color: var(--primary-color);
+    }
+    /* New rule: add a background image inside the HELLO WORLD box.
+       Replace the URL below with your desired background image URL. */
+    #hello-world {
+      background-image: url('https://raw.githubusercontent.com/19XX/aichan-website/main/hello-world-bg.png');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
     }
     
     /*––––––––––––––––––––––––––––––––––––––––––––––
@@ -233,7 +242,7 @@
     }
     /* Increase font size for buy-step buttons */
     .buy-step {
-      font-size: 1.4em;
+      font-size: 1.8em;
     }
     
     /*––––––––––––––––––––––––––––––––––––––––––––––
