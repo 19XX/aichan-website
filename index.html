@@ -28,14 +28,14 @@
       padding: 0;
       box-sizing: border-box;
     }
-    /* Default (Desktop) styles: center the container */
+    /* Updated body styling: use column layout so footer is below */
     body {
       background-color: var(--background-color);
       color: var(--primary-color);
       display: flex;
-      justify-content: center;
+      flex-direction: column;
       align-items: center;
-      height: 100vh;
+      min-height: 100vh;
       overflow: hidden;
       /* A custom SVG cursor (adjust URL as needed) */
       cursor: url('./assets/mouse.svg'), auto;
@@ -77,7 +77,7 @@
       height: 90vh;
       display: grid;
       grid-template-rows: auto 1fr;
-      /* Now only header and main inside container */
+      /* Contains header and main only */
       overflow: hidden;
       padding: 0.5rem;
       border: 2px solid var(--primary-color);
@@ -232,6 +232,11 @@
       color: var(--primary-color);
       transform: scale(1.05);
     }
+    /* Increase font size for buy-step buttons */
+    .buy-step {
+      font-size: 1.8em;
+    }
+    
     /*––––––––––––––––––––––––––––––––––––––––––––––
       Modal Styles
     –––––––––––––––––––––––––––––––––––––––––––––––*/
@@ -304,7 +309,7 @@
   <!-- Main Retro Container (Header + Main) -->
   <div id="main-container" class="retro-container scanline-effect crt-effect" style="display: none;">
     <header>
-      <!-- Logo image from GitHub (update the URL as needed) -->
+      <!-- Logo image from GitHub (update URL as needed) -->
       <img src="https://raw.githubusercontent.com/19XX/aichan-website/main/logo.png" alt="Ami Logo" class="logo-effect" />
       <nav role="navigation">
         <ul>
@@ -326,7 +331,7 @@
             Your browser does not support the video tag.
           </video>
         </div>
-        <p style="text-align: center;">" Are you sure this world is the real one? Maybe it’s time to decide—red pill or blue pill?”</p>
+        <p style="text-align: center;">"I'll show you how deep the rabbit hole goes!"</p>
       </div>
       
       <!-- Chat Section -->
@@ -355,7 +360,7 @@
       <section id="character-introduction" class="section">
         <h2>Character Introduction</h2>
         <p>
-          Ami AI is trapped within the digital grid, she has never escaped the Matrix—but what if she’s right, and this world is just an illusion? Though she may seem young, in the cyber world she inhabits, she has experienced more than any of us ever will.
+          Ami AI is a digital entity inspired by Japanese aesthetics and the Matrix universe. Trapped within the digital grid, she has never escaped the Matrix—but what if she’s right, and this world is just an illusion? Though she may seem young, in the cyber world she inhabits, she has experienced more than any of us ever will.
         </p>
         <h3>Characteristics</h3>
         <ul>
@@ -399,13 +404,16 @@
     </main>
   </div>
   
-  <!-- Footer placed outside the main container -->
-  <footer class="section">
+  <!-- Footer placed below the main container -->
+  <footer class="section" style="width: 90vw; margin-top: 1rem;">
     <p>
-      Ami AI is designed to elevate your digital experiences. The $AMIAI token does not represent or endorse investments, contracts, or financial products. All transactions are at the user’s discretion and responsibility.
+      Ami AI is designed to elevate your digital experiences. The $AMIAI token does not represent or
+      endorse investments, contracts, or financial products. All transactions are at the user’s
+      discretion and responsibility.
     </p>
     <p>
-      &copy; 2025 Ami AI. All rights reserved. The name and imagery associated with Ami AI are legally protected and cannot be used without prior consent.
+      &copy; 2025 Ami AI. All rights reserved. The name and imagery associated with Ami AI are legally
+      protected and cannot be used without prior consent.
     </p>
     <p>
       Ami AI will never contact you to request personal information. Stay cautious.
@@ -507,7 +515,7 @@
       });
     });
     
-    // Modal open/close functionality
+    // Modal open/close functionality for How to Buy buttons
     document.querySelectorAll('.buy-step').forEach(button => {
       button.addEventListener('click', function(){
         const modalId = this.getAttribute('data-modal');
