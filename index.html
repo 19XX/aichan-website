@@ -163,12 +163,15 @@
       color: var(--primary-color);
     }
     /* New rule: add a background image inside the HELLO WORLD box.
-       Replace the URL below with your desired background image URL. */
+       Replace the URL below with your desired background image raw URL. */
     #hello-world {
       background-image: url('https://raw.githubusercontent.com/19XX/aichan-website/main/hello-world-bg.png');
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
+      /* Use aspect-ratio to force the container's height to follow the image's ratio.
+         Adjust 16/9 to match your image's aspect ratio if necessary. */
+      aspect-ratio: 16 / 9;
     }
     
     /*––––––––––––––––––––––––––––––––––––––––––––––
