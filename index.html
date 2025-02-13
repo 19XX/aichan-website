@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Ami - Retro Green UI</title>
+  <title>Ami</title>
   <link rel="icon" type="image/x-icon" href="favicon.ico" />
   <!-- Retro terminal font -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -588,18 +588,19 @@
     const MAX_LINES = 10; // Maximum number of lines to display
 
     function appendLog(message, isSystem = false) {
-      const line = document.createElement("div");
-      line.className = "log";
-      line.textContent = isSystem ? `[SYSTEM] ${message}` : `> ${message}`;
-      terminal.appendChild(line);
+  const line = document.createElement("div");
+  line.className = "log";
+  line.textContent = isSystem ? `[SYSTEM] ${message}` : `> ${message}`;
+  terminal.appendChild(line);
 
-      // Remove the oldest line if the number of lines exceeds the limit
-      while (terminal.children.length > MAX_LINES) {
-        terminal.removeChild(terminal.firstChild);
-      }
+  // Remove the oldest line if the number of lines exceeds the limit
+  while (terminal.children.length > MAX_LINES) {
+    terminal.removeChild(terminal.firstChild);
+  }
 
-      terminal.scrollTop = terminal.scrollHeight;
-    }
+  // Scroll to the bottom to focus on the new line
+  terminal.scrollTop = terminal.scrollHeight;
+}
 
     function typeEffect(textArray, callback) {
       let i = 0;
