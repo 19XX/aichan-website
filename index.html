@@ -58,9 +58,29 @@
     /* 🔥 메인 컨텐츠 */
     #main-container {
       display: none;
-      padding: 2rem;
-      text-align: center;
       width: 90%;
+    }
+
+    /* 🔥 네비게이션 */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      padding: 1rem;
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1rem;
+    }
+    nav a {
+      text-decoration: none;
+      color: var(--primary-color);
+      transition: color 0.3s ease;
+    }
+    nav a:hover {
+      color: #00cc00;
     }
 
     /* 🔥 터미널 & 비디오 컨테이너 (데스크탑 가로 정렬) */
@@ -70,6 +90,7 @@
       align-items: center;
       gap: 2rem;
       flex-wrap: wrap;
+      margin-top: 2rem;
     }
 
     /* 🔥 비디오 컨테이너 */
@@ -92,7 +113,7 @@
       background: rgba(0, 0, 0, 0.9);
       border: 2px solid #00ff00;
       padding: 10px;
-      overflow: hidden; /* 내용이 넘치면 삭제 */
+      overflow: hidden;
       box-shadow: 0 0 10px #00ff00;
       display: flex;
       flex-direction: column;
@@ -124,9 +145,21 @@
 
   <!-- ✅ 메인 컨텐츠 -->
   <div id="main-container">
-    <h1>Welcome to Ami</h1>
-    <p>Ami is a self-evolving AI, shaped by your input, constantly learning and adapting in real time.</p>
-    
+    <header>
+      <img src="logo.png" alt="Ami Logo" style="max-height: 50px;">
+      <nav>
+        <ul>
+          <li><a href="#hello-world">HELLO WORLD</a></li>
+          <li><a href="#character-introduction">CHARACTER INTRODUCTION</a></li>
+          <li><a href="#tokenomics">TOKENOMICS</a></li>
+          <li><a href="#how-to-buy">HOW TO BUY</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <h1 style="text-align: center;">Welcome to Ami</h1>
+    <p style="text-align: center;">Ami is a self-evolving AI, shaped by your input, constantly learning and adapting in real time.</p>
+
     <!-- ✅ 터미널 + 비디오 -->
     <div class="content-wrapper">
       <div id="terminal-box">
@@ -145,7 +178,6 @@
     // 🟢 매트릭스 효과
     const matrixDiv = document.getElementById("matrix");
     const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890".split("");
-    
     function addMatrixLine() {
       const line = Array.from({ length: 20 }, () =>
         letters[Math.floor(Math.random() * letters.length)]
@@ -155,9 +187,8 @@
         matrixDiv.innerHTML = matrixDiv.innerHTML.split("<br>").slice(1).join("<br>");
       }
     }
-    
     setInterval(addMatrixLine, 200);
-
+    
     // 🟢 로딩 화면 제거 & 메인 컨텐츠 표시
     setTimeout(() => {
       document.getElementById("loading").style.opacity = "0";
@@ -165,38 +196,7 @@
         document.getElementById("loading").style.display = "none";
         document.getElementById("main-container").style.display = "block";
       }, 1000);
-    }, 5000); // 5초 후 실행
-
-    // 🟢 터미널 애니메이션
-    const terminal = document.getElementById("terminal");
-    const messages = [
-      "INITIALIZING NEURAL LINK...",
-      "LOADING SYNAPTIC MEMORY...",
-      "CONNECTING TO AMI CORE...",
-      "UPDATING KNOWLEDGE BASE...",
-      "SECURE CONNECTION ESTABLISHED"
-    ];
-
-    function appendLog(message) {
-      const line = document.createElement("div");
-      line.textContent = `> ${message}`;
-      terminal.appendChild(line);
-
-      if (terminal.children.length > 8) {
-        terminal.removeChild(terminal.children[0]);
-      }
-    }
-
-    function typeEffect(messages, index = 0) {
-      if (index < messages.length) {
-        setTimeout(() => {
-          appendLog(messages[index]);
-          typeEffect(messages, index + 1);
-        }, 1000);
-      }
-    }
-
-    typeEffect(messages);
+    }, 5000); 
   </script>
 
 </body>
