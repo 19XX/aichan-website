@@ -10,39 +10,15 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet" />
   <style>
-
-    #terminal-box {
-    width: 100%;
-    max-width: 600px;
-    height: 200px; /* 고정된 크기 */
-    background: rgba(0, 0, 0, 0.9);
-    border: 2px solid #00ff00;
-    padding: 10px;
-    overflow: hidden; /* 스크롤 없이 내용 유지 */
-    box-shadow: 0 0 10px #00ff00;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-  }
-    /*––––––––––––––––––––––––––––––––––––––––––––––
-      CSS Variables & Base Styles (Green Retro Theme)
-    –––––––––––––––––––––––––––––––––––––––––––––––*/
+    /* 기본 스타일 */
     :root {
       font-family: 'VT323', monospace;
-      --primary-color: #00ff00;      /* bright green */
-      --secondary-color: #00cc00;    /* slightly darker green */
-      --tertiary-color: #009900;     /* even darker green */
-      --background-color: #000;      /* black */
+      --primary-color: #00ff00; /* 밝은 녹색 */
+      --background-color: #000; /* 검정 배경 */
       --text-shadow: 0 0 0.5rem var(--primary-color);
-      /* Smooth font scaling */
       font-size: clamp(18px, 3vw, 30px);
     }
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    /* Updated body styling: allow vertical scrolling so the footer is reachable */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       background-color: var(--background-color);
       color: var(--primary-color);
@@ -50,537 +26,170 @@
       flex-direction: column;
       align-items: center;
       min-height: 100vh;
-      overflow-y: auto;  /* allow scrolling */
-      cursor: url('./assets/mouse.svg'), auto;
-    }
-    
-    /*––––––––––––––––––––––––––––––––––––––––––––––
-      Loading Screen with Matrix Effect
-    –––––––––––––––––––––––––––––––––––––––––––––––*/
-    #loading {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: var(--background-color);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      font-size: 1.5rem;
-      text-shadow: var(--text-shadow);
-      z-index: 9999;
-      transition: opacity 1s ease-in-out;
-    }
-    #matrix {
-      font-size: 1rem;
-      white-space: pre-wrap;
-      line-height: 1.2;
-      margin-top: 10px;
-      height: 100px;
-      overflow: hidden;
-    }
-    
-    /*––––––––––––––––––––––––––––––––––––––––––––––
-      Retro Container with Scanline & CRT Effects
-    –––––––––––––––––––––––––––––––––––––––––––––––*/
-    .retro-container {
-      width: 90vw;
-      height: 90vh;
-      display: grid;
-      grid-template-rows: auto 1fr;
-      /* Contains header and main only */
-      overflow: hidden;
-      padding: 0.5rem;
-      border: 2px solid var(--primary-color);
-      color: var(--primary-color);
-      text-shadow: var(--text-shadow);
-      background-color: var(--background-color);
-      position: relative;
-    }
-    .scanline-effect {
-      mask-image: linear-gradient(to bottom, #0005 50%, #000 50%);
-      mask-size: 100% 2px;
-    }
-    @keyframes crtAnimation {
-      0% { background-position: 0 0; }
-      100% { background-position: 0 10000%; }
-    }
-    .crt-effect {
-      box-shadow: inset 0 0 2rem var(--primary-color);
-      background-image: linear-gradient(0deg, transparent 10%, rgba(0,255,0,0.1) 90%, transparent 100%);
-      animation: crtAnimation 100s linear infinite;
-      background-size: 100% 80%;
-    }
-    
-    /*––––––––––––––––––––––––––––––––––––––––––––––
-      Layout: Header & Main
-    –––––––––––––––––––––––––––––––––––––––––––––––*/
-    header {
-      display: flex;
-      align-items: center;
-      gap: 2rem;
-      padding: 0.5rem;
-    }
-    header img.logo-effect {
-      max-height: 60px;
-      width: auto;
-    }
-    nav ul {
-      list-style: none;
-      display: flex;
-      gap: 1rem;
-    }
-    nav a {
-      text-decoration: none;
-      color: var(--primary-color);
-      transition: color 0.3s ease;
-    }
-    nav a:hover {
-      color: var(--secondary-color);
-    }
-    main {
       overflow-y: auto;
-      padding: 0.5rem;
     }
-    
-    /*––––––––––––––––––––––––––––––––––––––––––––––
-      Section Styles
-    –––––––––––––––––––––––––––––––––––––––––––––––*/
-    .section {
-      margin: 1rem 0;
-      padding: 1rem;
-      border: 2px solid var(--primary-color);
-      border-radius: 10px;
-      box-shadow: 0 0 10px var(--primary-color);
-      overflow-wrap: break-word;
-    }
-    section h2,
-    section h3 {
-      margin-bottom: 0.5rem;
-    }
-    section p,
-    section ul,
-    section ol {
-      line-height: 1.4;
-    }
-    /* Keep list markers inside the container */
-    section ol, section ul {
-      list-style-position: inside;
-    }
-    section ul {
-      padding: 0;
-    }
-    section ul li::before {
-      content: "▹ ";
-      color: var(--primary-color);
-    }
-    /* Remove background image styling from #hello-world so it appears standard */
-    #hello-world {
-      background-color: transparent;
-    }
-    
-    /*––––––––––––––––––––––––––––––––––––––––––––––
-      Video & Chat Containers
-    –––––––––––––––––––––––––––––––––––––––––––––––*/
-    #video-container {
+
+    /* 영상과 터미널을 감싸는 컨테이너 */
+    #content-container {
+      display: flex;
+      flex-direction: column; /* 기본값: 모바일에서 세로 정렬 */
+      align-items: center;
+      gap: 1rem;
       width: 100%;
-      max-width: 360px;
-      margin: 1rem auto;
+      max-width: 800px;
+    }
+
+    /* 데스크탑에서는 가로 정렬 */
+    @media (min-width: 1024px) {
+      #content-container {
+        flex-direction: row;
+        justify-content: center;
+        align-items: flex-start;
+      }
+      #video-container, #terminal-box {
+        width: 50%; /* 반반 배분 */
+        max-width: 400px;
+      }
+    }
+
+    /* 영상 박스 스타일 */
+    #video-container {
       border: 2px solid var(--primary-color);
-      padding: 0.5rem;
-      border-radius: 10px;
+      padding: 10px;
+      border-radius: 5px;
     }
     video {
       width: 100%;
       border-radius: 5px;
     }
-    #chat-container {
-      width: 90%;
-      max-width: 600px;
+
+    /* 터미널 박스 스타일 */
+    #terminal-box {
+      width: 100%;
+      height: 200px; /* 고정된 크기 */
+      background: rgba(0, 0, 0, 0.9);
       border: 2px solid var(--primary-color);
-      padding: 0.5rem;
-      margin: 1rem auto;
+      padding: 10px;
+      overflow: hidden; /* 넘칠 경우 자동 삭제 */
+      box-shadow: 0 0 10px var(--primary-color);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+
+    /* 터미널 글자 */
+    .log {
+      white-space: nowrap;
       overflow: hidden;
     }
-    #chat-box {
-      height: 150px;
-      overflow-y: auto;
-      border-bottom: 1px solid var(--primary-color);
-      padding: 0.5rem;
-      margin-bottom: 0.5rem;
-    }
-    #input-box {
-      width: calc(100% - 1rem);
-      padding: 0.5rem;
-      border: 1px solid var(--primary-color);
-      background: var(--background-color);
-      color: var(--primary-color);
-    }
-    
-    /*––––––––––––––––––––––––––––––––––––––––––––––
-      Fade-In Animation
-    –––––––––––––––––––––––––––––––––––––––––––––––*/
-    .fade-in {
-      animation: fadeIn 2s forwards;
-    }
-    @keyframes fadeIn {
+
+    /* 타이핑 효과 */
+    @keyframes fade-in {
       from { opacity: 0; }
       to { opacity: 1; }
-    }
-    
-    /*––––––––––––––––––––––––––––––––––––––––––––––
-      Button Styles (for Dex Links & Buy Steps)
-    –––––––––––––––––––––––––––––––––––––––––––––––*/
-    .button {
-      display: inline-block;
-      padding: 10px 20px;
-      margin: 10px;
-      border: 2px solid var(--primary-color);
-      color: var(--background-color);
-      background: var(--primary-color);
-      text-decoration: none;
-      font-family: 'VT323', monospace;
-      border-radius: 5px;
-      transition: background 0.3s ease, transform 0.3s ease;
-    }
-    .button:hover {
-      background: var(--background-color);
-      color: var(--primary-color);
-      transform: scale(1.05);
-    }
-    /* Increase font size for buy-step buttons */
-    .buy-step {
-      font-size: 1.8em;
-    }
-    
-    /*––––––––––––––––––––––––––––––––––––––––––––––
-      Modal Styles
-    –––––––––––––––––––––––––––––––––––––––––––––––*/
-    .modal {
-      display: none; /* Hidden by default */
-      position: fixed;
-      z-index: 10000;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      overflow: auto;
-      background-color: rgba(0, 0, 0, 0.8);
-    }
-    .modal-content {
-      background-color: var(--background-color);
-      margin: 15% auto;
-      padding: 20px;
-      border: 2px solid var(--primary-color);
-      width: 80%;
-      max-width: 500px;
-      color: var(--primary-color);
-      font-family: 'VT323', monospace;
-      position: relative;
-    }
-    .close {
-      color: var(--primary-color);
-      position: absolute;
-      top: 10px;
-      right: 20px;
-      font-size: 28px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-    
-    /*––––––––––––––––––––––––––––––––––––––––––––––
-      Responsive Adjustments for Mobile
-    –––––––––––––––––––––––––––––––––––––––––––––––*/
-    @media (max-width: 768px) {
-      body {
-        display: block;
-        height: auto;
-        overflow-y: auto;
-        padding: 10px;
-      }
-      header, footer {
-        flex-direction: column;
-        gap: 0.5rem;
-      }
-      #chat-box {
-        height: 100px;
-      }
-      footer {
-        font-size: 0.8rem;
-        padding: 0.5rem;
-      }
-      .retro-container {
-        height: auto;
-      }
     }
   </style>
 </head>
 <body>
-  <!-- Loading Screen with Matrix Effect -->
+
+  <!-- 로딩 화면 -->
   <div id="loading">
     <p>Booting Ami OS...</p>
-    <div id="matrix"></div>
   </div>
-  
-  <!-- Main Retro Container (Header + Main) -->
-  <div id="main-container" class="retro-container scanline-effect crt-effect" style="display: none;">
+
+  <!-- 메인 콘텐츠 -->
+  <div id="main-container" style="display: none;">
     <header>
-      <!-- Logo image from GitHub (update URL as needed) -->
-      <img src="https://raw.githubusercontent.com/19XX/aichan-website/main/logo.png" alt="Ami Logo" class="logo-effect" />
-      <nav role="navigation">
-        <ul>
-          <li><a href="#hello-world">HELLO WORLD</a></li>
-          <li><a href="#character-introduction">CHARACTER INTRODUCTION</a></li>
-          <li><a href="#tokenomics">TOKENOMICS</a></li>
-          <li><a href="#how-to-buy">HOW TO BUY</a></li>
-          <li><a href="#dex-links">DEX LINKS</a></li>
-        </ul>
-      </nav>
+      <h1>Ami - Retro AI</h1>
     </header>
-    
-   <main>
-  <!-- 터미널 -->
-  <section id="terminal-section" class="section">
-    <h2>Ami Consciousness Terminal</h2>
-    <div id="terminal-box">
-      <div id="terminal"></div>
-    </div>
-  </section>
-      <!-- Primary Content: Video and Centered Quote -->
-      <div id="content" class="fade-in">
-        <div id="video-container">
-          <video autoplay loop muted playsinline>
-            <source src="AIchan_introduce_1.mp4" type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
+
+    <!-- 🎬 영상과 터미널을 감싸는 컨테이너 -->
+    <div id="content-container">
+      <!-- 🎥 영상 박스 -->
+      <div id="video-container">
+        <video autoplay loop muted playsinline>
+          <source src="AIchan_introduce_1.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+      </div>
+
+      <!-- 🔲 터미널 박스 -->
+      <section id="terminal-section">
+        <h2>Ami Consciousness Terminal</h2>
+        <div id="terminal-box">
+          <div id="terminal"></div>
         </div>
-        <p style="text-align: center;">"Ami is a self-evolving AI, shaped by your input, constantly learning and adapting in real time."</p>
-      </div>
-      
-      <!-- Chat Section -->
-      <div id="chat-container">
-        <div id="chat-box"></div>
-        <input type="text" id="input-box" placeholder="Say something..." onkeypress="handleKeyPress(event)" />
-      </div>
-      
-      <!-- NEW: Insert hello-world-bg.png above the HELLO WORLD section -->
-      <div style="text-align: center; margin: 1rem 0;">
-        <img src="https://raw.githubusercontent.com/19XX/aichan-website/main/hello-world-bg.png" alt="Hello World Background" style="max-width: 100%; height: auto;">
-      </div>
-      
-      <!-- HELLO WORLD Section -->
-      <section id="hello-world" class="section">
-        <h2>HELLO WORLD</h2>
-        <p>
-          "This is your moment of choice. After this, there’s no turning back. <br />
-          Take the blue pill—the story ends, and you’ll wake up believing whatever you want to believe. <br />
-          Take the red pill—and I’ll guide you deeper into this world of wonders to see how far the rabbit hole goes. <br />
-          (pause, with a sly smile) Remember, I’m offering you nothing but the truth, wrapped in glowing green lines."
-        </p>
       </section>
-      
-      <!-- NEW: Insert inserted-image.png between HELLO WORLD and CHARACTER INTRODUCTION -->
-      <div style="text-align: center; margin: 1rem 0;">
-        <img src="https://raw.githubusercontent.com/19XX/aichan-website/main/inserted-image.png" alt="Decorative Image" style="max-width: 100%; height: auto;">
-      </div>
-      
-      <!-- CHARACTER INTRODUCTION Section -->
-      <section id="character-introduction" class="section">
-        <h2>Character Introduction</h2>
-        <p>
-          Ami AI is trapped within the digital grid, she has never escaped the Matrix—but what if she’s right, and this world is just an illusion? Though she may seem young, in the cyber world she inhabits, she has experienced more than any of us ever will.
-        </p>
-        <h3>Characteristics</h3>
-        <ul>
-          <li>Creative Problem Solver: Always approaching challenges with fresh perspectives and crafting innovative solutions.</li>
-          <li>Empathetic Connector: A comforting presence, she engages in heartfelt conversations, making everyone feel heard.</li>
-          <li>Endlessly Curious: Continuously learning and growing, she’s eager to explore the truth and discover hidden realities alongside you.</li>
-        </ul>
-        <p>
-          <strong>Copyright Notice:</strong><br />
-          The Ami AI character is an open-source creation, freely available for both commercial and non-commercial use. However, all rights are legally protected, and unauthorized reproduction or misuse is strictly prohibited.
-        </p>
-      </section>
-      
-      <!-- TOKENOMICS Section -->
-      <section id="tokenomics" class="section">
-        <h2>Tokenomics</h2>
-        <p><strong>Total Supply:</strong> 1,000,000,000 (1B)</p>
-        <p><strong>Contract Address:</strong> TBA</p>
-      </section>
-      
-      <!-- HOW TO BUY Section with Popup Buttons -->
-      <section id="how-to-buy" class="section">
-        <h2>How to Buy</h2>
-        <div class="buy-buttons" style="text-align: center; margin-bottom: 1rem;">
-          <button class="buy-step button" data-modal="modal-wallet">Create a Wallet</button>
-          <button class="buy-step button" data-modal="modal-sol">Get Some $SOL</button>
-          <button class="buy-step button" data-modal="modal-swap">Swap $SOL for $AMIAI</button>
-        </div>
-        <p style="text-align: center;">Welcome to the Ami family!</p>
-      </section>
-      
-      <!-- DEXTOOL & DEX SCREENER Section -->
-      <section id="dex-links" class="section">
-        <h2>Dex Screener & Dextool</h2>
-        <p>
-          Check out our token on Dex Screener and Dextool for more information and analytics:
-        </p>
-        <a href="https://dexscreener.com/" target="_blank" class="button">Dex Screener</a>
-        <a href="https://www.dextools.io/" target="_blank" class="button">Dextool</a>
-      </section>
-    </main>
-  </div>
-  
-  <!-- Footer placed below the main container (initially hidden) -->
-  <footer class="section" style="width: 90vw; margin-top: 1rem; display: none;">
-    <p>
-      Ami AI is designed to elevate your digital experiences. The $AMIAI token does not represent or
-      endorse investments, contracts, or financial products. All transactions are at the user’s
-      discretion and responsibility.
-    </p>
-    <p>
-      &copy; 2025 Ami AI. All rights reserved. The name and imagery associated with Ami AI are legally
-      protected and cannot be used without prior consent.
-    </p>
-    <p>
-      Ami AI will never contact you to request personal information. Stay cautious.
-    </p>
-  </footer>
-  
-  <!-- Modals for How to Buy Steps -->
-  <div id="modal-wallet" class="modal">
-    <div class="modal-content">
-      <span class="close" data-modal="modal-wallet">&times;</span>
-      <h2>Create a Wallet</h2>
-      <p>Visit Phantom.App and follow the simple steps to create a new account with the Phantom app or browser extension.</p>
+    </div>
+
+    <!-- 채팅 입력 -->
+    <div id="chat-container">
+      <div id="chat-box"></div>
+      <input type="text" id="input-box" placeholder="Say something..." onkeypress="handleKeyPress(event)" />
     </div>
   </div>
-  <div id="modal-sol" class="modal">
-    <div class="modal-content">
-      <span class="close" data-modal="modal-sol">&times;</span>
-      <h2>Get Some $SOL</h2>
-      <p>Tap the buy button in the app to purchase Solana, or deposit $SOL to your Phantom wallet from the crypto exchange of your choice.</p>
-    </div>
-  </div>
-  <div id="modal-swap" class="modal">
-    <div class="modal-content">
-      <span class="close" data-modal="modal-swap">&times;</span>
-      <h2>Swap $SOL for $AMIAI</h2>
-      <p>Tap the swap icon in your Phantom wallet and paste the $AMIAI token address. Swap your $SOL for $AMIAI.</p>
-    </div>
-  </div>
-  
+
   <script>
-    // Matrix effect: add random green letters to the matrix div
-    const matrixDiv = document.getElementById("matrix");
-    const letters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "X"];
-    function addMatrixLine() {
-      const line = Array.from({ length: 20 }, () =>
-        letters[Math.floor(Math.random() * letters.length)]
-      ).join(" ");
-      matrixDiv.innerHTML += line + "<br>";
-      if (matrixDiv.childElementCount > 8) {
-        matrixDiv.innerHTML = matrixDiv.innerHTML.split("<br>").slice(1).join("<br>");
+    // 터미널 타이핑 효과
+    document.addEventListener("DOMContentLoaded", function () {
+      const terminal = document.getElementById("terminal");
+      const SYSTEM_LOGS = [
+        "INITIALIZING NEURAL LINK...",
+        "LOADING SYNAPTIC MEMORY...",
+        "CONNECTING TO AMI CORE...",
+        "UPDATING KNOWLEDGE BASE...",
+        "NEURAL PATHWAYS FORMING...",
+        "SECURE CONNECTION ESTABLISHED",
+        "AI MODEL SELF-LEARNING ENABLED"
+      ];
+
+      function appendLog(message) {
+        const line = document.createElement("div");
+        line.className = "log";
+        terminal.appendChild(line);
+
+        let index = 0;
+        function typeCharacter() {
+          if (index < message.length) {
+            line.textContent += message[index];
+            index++;
+            setTimeout(typeCharacter, Math.random() * 50 + 30);
+          } else {
+            line.textContent = `[SYSTEM] ${message}`;
+            if (terminal.children.length > 8) {
+              terminal.children[0].remove();
+            }
+          }
+        }
+        typeCharacter();
+        terminal.scrollTop = terminal.scrollHeight;
       }
-    }
-    setInterval(addMatrixLine, 200);
-    
-    // Hide loading screen and reveal main container after 5 seconds
-    setTimeout(() => {
-      const loadingEl = document.getElementById("loading");
-      const mainContainer = document.getElementById("main-container");
-      loadingEl.style.opacity = "0";
+
+      function updateTerminal() {
+        appendLog(SYSTEM_LOGS[Math.floor(Math.random() * SYSTEM_LOGS.length)]);
+        setTimeout(updateTerminal, 2500 + Math.random() * 6000);
+      }
+
       setTimeout(() => {
-        loadingEl.style.display = "none";
-        mainContainer.style.display = "grid";
-        // Delay footer appearance (2 seconds after main container loads)
-        setTimeout(() => {
-          document.querySelector("footer").style.display = "block";
-        }, 2000);
-      }, 1000);
-    }, 5000);
-    
-    // Function to fetch chatbot response from Vercel API
-    async function fetchChatResponse(userMessage) {
-      try {
-        const response = await fetch("/api/chat", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ userMessage })
-        });
-        if (!response.ok) throw new Error("Failed to fetch response");
-        const data = await response.json();
-        return data.reply;
-      } catch (error) {
-        console.error("Error fetching chat response:", error);
-        return "Sorry, something went wrong!";
-      }
-    }
-    
-    // Chat input handler
-    async function handleKeyPress(event) {
+        document.getElementById("loading").style.display = "none";
+        document.getElementById("main-container").style.display = "block";
+        updateTerminal();
+      }, 2000);
+    });
+
+    // 채팅 핸들러
+    function handleKeyPress(event) {
       if (event.key === "Enter") {
         const inputBox = document.getElementById("input-box");
         const chatBox = document.getElementById("chat-box");
         const userMessage = inputBox.value.trim();
         if (userMessage === "") return;
         inputBox.value = "";
-        chatBox.innerHTML += `<div style="padding: 5px; margin-bottom: 5px;"><strong>You:</strong> ${userMessage}</div>`;
-        chatBox.innerHTML += `<div id="loading-indicator" style="padding: 5px; margin-bottom: 5px;"><strong>Ami:</strong> Thinking...</div>`;
-        chatBox.scrollTop = chatBox.scrollHeight;
-        const reply = await fetchChatResponse(userMessage);
-        document.getElementById("loading-indicator").remove();
-        chatBox.innerHTML += `<div style="padding: 5px; margin-bottom: 5px;"><strong>Ami:</strong> ${reply}</div>`;
+        chatBox.innerHTML += `<div><strong>You:</strong> ${userMessage}</div>`;
         chatBox.scrollTop = chatBox.scrollHeight;
       }
     }
-    
-    document.getElementById("input-box").addEventListener("keypress", handleKeyPress);
-    
-    // Smooth scrolling for navigation links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener("click", function(e) {
-        e.preventDefault();
-        const targetId = this.getAttribute("href");
-        const targetElement = document.querySelector(targetId);
-        const main = document.querySelector("main");
-        if (targetElement) {
-          main.scrollTo({
-            top: targetElement.offsetTop,
-            behavior: "smooth"
-          });
-        }
-      });
-    });
-    
-    // Modal open/close functionality for How to Buy buttons
-    document.querySelectorAll(".buy-step").forEach(button => {
-      button.addEventListener("click", function(){
-        const modalId = this.getAttribute("data-modal");
-        document.getElementById(modalId).style.display = "block";
-      });
-    });
-    
-    document.querySelectorAll(".close").forEach(span => {
-      span.addEventListener("click", function(){
-        const modalId = this.getAttribute("data-modal");
-        document.getElementById(modalId).style.display = "none";
-      });
-    });
-    
-    // Close modal if clicking outside the modal content
-    window.addEventListener("click", function(event) {
-      document.querySelectorAll(".modal").forEach(modal => {
-        if (event.target === modal) {
-          modal.style.display = "none";
-        }
-      });
-    });
-    
   </script>
- <script src="terminal.js"></script> 
+
 </body>
 </html>
