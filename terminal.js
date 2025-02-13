@@ -1,4 +1,4 @@
-// terminal.js (터미널 로직 분리)
+// 터미널 박스 크기 고정 및 위쪽 줄 자동 소멸 추가
 document.addEventListener("DOMContentLoaded", function () {
   const terminal = document.getElementById("terminal");
 
@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function () {
   ];
 
   const HUMAN_KNOWLEDGE = [
-    "best way to talk to cats",
+     "best way to talk to cats",
     "how to make the perfect cup of coffee",
     "why do humans sleep 8 hours but still tired?",
     "the ultimate guide to procrastination",
@@ -129,7 +129,7 @@ document.addEventListener("DOMContentLoaded", function () {
   "why do humans still pretend to read Terms and Conditions?"
   ];
 
-  const MAX_LINES = 18;
+  const MAX_LINES = 10; // 터미널에 유지할 최대 줄 수
 
   function appendLog(message, isSystem = false) {
     const line = document.createElement("div");
@@ -144,10 +144,10 @@ document.addEventListener("DOMContentLoaded", function () {
         setTimeout(typeCharacter, Math.random() * 50 + 30);
       } else {
         line.textContent = isSystem ? `[SYSTEM] ${message}` : `> ${message}`;
+
+        // 최대 줄 수 초과 시, 가장 오래된 줄 삭제
         if (terminal.children.length > MAX_LINES) {
-          const oldestLine = terminal.children[0];
-          oldestLine.classList.add("fade-out");
-          setTimeout(() => terminal.removeChild(oldestLine), 1000);
+          terminal.removeChild(terminal.firstChild);
         }
       }
     }
