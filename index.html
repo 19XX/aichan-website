@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Ami</title>
+  <title>Ami - Retro Green UI</title>
   <link rel="icon" type="image/x-icon" href="favicon.ico" />
   <!-- Retro terminal font -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -206,6 +206,22 @@
     }
 
     /*––––––––––––––––––––––––––––––––––––––––––––––
+      Terminal Box Styling
+    –––––––––––––––––––––––––––––––––––––––––––––––*/
+    #terminal-box {
+      width: 80%;
+      max-width: 600px;
+      height: 200px; /* Fixed height */
+      border: 2px solid var(--primary-color);
+      padding: 10px;
+      margin: 1rem auto;
+      overflow: hidden; /* Hide overflowing text */
+      white-space: pre-wrap; /* Preserve whitespace */
+      background-color: var(--background-color);
+      color: var(--primary-color);
+    }
+
+    /*––––––––––––––––––––––––––––––––––––––––––––––
       Fade-In Animation
     –––––––––––––––––––––––––––––––––––––––––––––––*/
     .fade-in {
@@ -327,6 +343,11 @@
     </header>
 
     <main>
+      <!-- Terminal Box -->
+      <div id="terminal-box">
+        <div id="terminal"></div>
+      </div>
+
       <!-- Primary Content: Video and Centered Quote -->
       <div id="content" class="fade-in">
         <div id="video-container">
@@ -337,9 +358,6 @@
         </div>
         <p style="text-align: center;">"Are you sure this world is the real one? Maybe it’s time to decide—red pill or blue pill?”</p>
       </div>
-
-      <!-- Terminal Box -->
-      <div id="terminal"></div>
 
       <!-- Chat Section -->
       <div id="chat-container">
