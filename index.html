@@ -454,103 +454,107 @@
   
   <script>
     // Matrix effect: add random green letters to the matrix div
-    const matrixDiv = document.getElementById('matrix');
-    const letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'X'];
+    const matrixDiv = document.getElementById("matrix");
+    const letters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "X"];
     function addMatrixLine() {
       const line = Array.from({ length: 20 }, () =>
         letters[Math.floor(Math.random() * letters.length)]
-      ).join(' ');
-      matrixDiv.innerHTML += line + '<br>';
+      ).join(" ");
+      matrixDiv.innerHTML += line + "<br>";
       if (matrixDiv.childElementCount > 8) {
-        matrixDiv.innerHTML = matrixDiv.innerHTML.split('<br>').slice(1).join('<br>');
+        matrixDiv.innerHTML = matrixDiv.innerHTML.split("<br>").slice(1).join("<br>");
       }
     }
     setInterval(addMatrixLine, 200);
     
     // Hide loading screen and reveal main container after 5 seconds
     setTimeout(() => {
-      const loadingEl = document.getElementById('loading');
-      const mainContainer = document.getElementById('main-container');
-      loadingEl.style.opacity = '0';
+      const loadingEl = document.getElementById("loading");
+      const mainContainer = document.getElementById("main-container");
+      loadingEl.style.opacity = "0";
       setTimeout(() => {
-        loadingEl.style.display = 'none';
-        mainContainer.style.display = 'grid';
+        loadingEl.style.display = "none";
+        mainContainer.style.display = "grid";
         // Delay footer appearance (2 seconds after main container loads)
         setTimeout(() => {
-          document.querySelector('footer').style.display = 'block';
+          document.querySelector("footer").style.display = "block";
         }, 2000);
       }, 1000);
     }, 5000);
     
-    // Chat input handler
-    async function handleKeyPress(event) {
-      if (event.key === 'Enter') {
-        const inputBox = document.getElementById('input-box');
-        const chatBox = document.getElementById('chat-box');
-        const userMessage = inputBox.value;
-        inputBox.value = '';
-        chatBox.innerHTML += <div style="padding: 5px; margin-bottom: 5px;"><strong>You:</strong> ${userMessage}</div>;
-        chatBox.innerHTML += <div id="loading-indicator" style="padding: 5px; margin-bottom: 5px;"><strong>Ami:</strong> Thinking...</div>;
-        chatBox.scrollTop = chatBox.scrollHeight;
-        try {
-          async function fetchChatResponse(userMessage) {
-    const response = await fetch("/api/chat", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ userMessage })
-    });
-
-    const data = await response.json();
-    return data.reply;
-          document.getElementById('loading-indicator').remove();
-          chatBox.innerHTML += <div style="padding: 5px; margin-bottom: 5px;"><strong>Ami:</strong> ${reply}</div>;
-        } catch (error) {
-          document.getElementById('loading-indicator').remove();
-          chatBox.innerHTML += <div style="padding: 5px; margin-bottom: 5px; color: #ff0000;"><strong>Error:</strong> Failed to get a response from Ami.</div>;
-        } finally {
-          chatBox.scrollTop = chatBox.scrollHeight;
-        }
+    // Function to fetch chatbot response from Vercel API
+    async function fetchChatResponse(userMessage) {
+      try {
+        const response = await fetch("/api/chat", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ userMessage })
+        });
+        if (!response.ok) throw new Error("Failed to fetch response");
+        const data = await response.json();
+        return data.reply;
+      } catch (error) {
+        console.error("Error fetching chat response:", error);
+        return "Sorry, something went wrong!";
       }
     }
     
-    // Smooth scrolling for navigation links within main container
+    // Chat input handler
+    async function handleKeyPress(event) {
+      if (event.key === "Enter") {
+        const inputBox = document.getElementById("input-box");
+        const chatBox = document.getElementById("chat-box");
+        const userMessage = inputBox.value.trim();
+        if (userMessage === "") return;
+        inputBox.value = "";
+        chatBox.innerHTML += `<div style="padding: 5px; margin-bottom: 5px;"><strong>You:</strong> ${userMessage}</div>`;
+        chatBox.innerHTML += `<div id="loading-indicator" style="padding: 5px; margin-bottom: 5px;"><strong>Ami:</strong> Thinking...</div>`;
+        chatBox.scrollTop = chatBox.scrollHeight;
+        const reply = await fetchChatResponse(userMessage);
+        document.getElementById("loading-indicator").remove();
+        chatBox.innerHTML += `<div style="padding: 5px; margin-bottom: 5px;"><strong>Ami:</strong> ${reply}</div>`;
+        chatBox.scrollTop = chatBox.scrollHeight;
+      }
+    }
+    
+    document.getElementById("input-box").addEventListener("keypress", handleKeyPress);
+    
+    // Smooth scrolling for navigation links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function(e) {
+      anchor.addEventListener("click", function(e) {
         e.preventDefault();
-        const targetId = this.getAttribute('href');
+        const targetId = this.getAttribute("href");
         const targetElement = document.querySelector(targetId);
-        const main = document.querySelector('main');
+        const main = document.querySelector("main");
         if (targetElement) {
           main.scrollTo({
             top: targetElement.offsetTop,
-            behavior: 'smooth'
+            behavior: "smooth"
           });
         }
       });
     });
     
     // Modal open/close functionality for How to Buy buttons
-    document.querySelectorAll('.buy-step').forEach(button => {
-      button.addEventListener('click', function(){
-        const modalId = this.getAttribute('data-modal');
-        document.getElementById(modalId).style.display = 'block';
+    document.querySelectorAll(".buy-step").forEach(button => {
+      button.addEventListener("click", function(){
+        const modalId = this.getAttribute("data-modal");
+        document.getElementById(modalId).style.display = "block";
       });
     });
     
-    document.querySelectorAll('.close').forEach(span => {
-      span.addEventListener('click', function(){
-        const modalId = this.getAttribute('data-modal');
-        document.getElementById(modalId).style.display = 'none';
+    document.querySelectorAll(".close").forEach(span => {
+      span.addEventListener("click", function(){
+        const modalId = this.getAttribute("data-modal");
+        document.getElementById(modalId).style.display = "none";
       });
     });
     
     // Close modal if clicking outside the modal content
-    window.addEventListener('click', function(event) {
-      document.querySelectorAll('.modal').forEach(modal => {
+    window.addEventListener("click", function(event) {
+      document.querySelectorAll(".modal").forEach(modal => {
         if (event.target === modal) {
-          modal.style.display = 'none';
+          modal.style.display = "none";
         }
       });
     });
