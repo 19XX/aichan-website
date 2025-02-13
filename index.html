@@ -764,7 +764,7 @@ function updateTerminalCycle() {
     "why do humans still pretend to read Terms and Conditions?"
   ];
 
-  // Append a random log (system or human) then recursively call updateTerminalCycle
+   // Append a random log (system or human) then recursively call updateTerminalCycle
   if (Math.random() < 0.2) {
     appendLog(SYSTEM_LOGS[Math.floor(Math.random() * SYSTEM_LOGS.length)], true);
   } else {
