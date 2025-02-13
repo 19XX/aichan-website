@@ -10,15 +10,22 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet" />
   <style>
+
     /* 기본 스타일 */
     :root {
       font-family: 'VT323', monospace;
-      --primary-color: #00ff00; /* 밝은 녹색 */
-      --background-color: #000; /* 검정 배경 */
+      --primary-color: #00ff00;      
+      --background-color: #000;      
       --text-shadow: 0 0 0.5rem var(--primary-color);
       font-size: clamp(18px, 3vw, 30px);
     }
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
     body {
       background-color: var(--background-color);
       color: var(--primary-color);
@@ -27,12 +34,13 @@
       align-items: center;
       min-height: 100vh;
       overflow-y: auto;
+      cursor: url('./assets/mouse.svg'), auto;
     }
 
-    /* 영상과 터미널을 감싸는 컨테이너 */
+    /* 컨텐츠 배치 (영상 + 터미널) */
     #content-container {
       display: flex;
-      flex-direction: column; /* 기본값: 모바일에서 세로 정렬 */
+      flex-direction: column; /* 기본적으로 세로 정렬 (모바일) */
       align-items: center;
       gap: 1rem;
       width: 100%;
@@ -42,52 +50,52 @@
     /* 데스크탑에서는 가로 정렬 */
     @media (min-width: 1024px) {
       #content-container {
-        flex-direction: row;
+        flex-direction: row; /* 가로 정렬 */
         justify-content: center;
         align-items: flex-start;
       }
+
       #video-container, #terminal-box {
         width: 50%; /* 반반 배분 */
-        max-width: 400px;
+        max-width: 400px; /* 너무 커지지 않도록 제한 */
       }
     }
 
-    /* 영상 박스 스타일 */
+    /* 영상 컨테이너 */
     #video-container {
+      width: 100%;
+      max-width: 360px;
       border: 2px solid var(--primary-color);
-      padding: 10px;
-      border-radius: 5px;
+      padding: 0.5rem;
+      border-radius: 10px;
     }
+
     video {
       width: 100%;
       border-radius: 5px;
     }
 
-    /* 터미널 박스 스타일 */
+    /* 터미널 박스 */
     #terminal-box {
       width: 100%;
+      max-width: 600px;
       height: 200px; /* 고정된 크기 */
       background: rgba(0, 0, 0, 0.9);
-      border: 2px solid var(--primary-color);
+      border: 2px solid #00ff00;
       padding: 10px;
-      overflow: hidden; /* 넘칠 경우 자동 삭제 */
-      box-shadow: 0 0 10px var(--primary-color);
+      overflow: hidden; /* 스크롤 없이 유지 */
+      box-shadow: 0 0 10px #00ff00;
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
     }
 
-    /* 터미널 글자 */
-    .log {
-      white-space: nowrap;
-      overflow: hidden;
+    /* 터미널 텍스트 스타일 */
+    #terminal {
+      font-size: 1rem;
+      line-height: 1.4;
     }
 
-    /* 타이핑 효과 */
-    @keyframes fade-in {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
   </style>
 </head>
 <body>
@@ -97,98 +105,56 @@
     <p>Booting Ami OS...</p>
   </div>
 
-  <!-- 메인 콘텐츠 -->
-  <div id="main-container" style="display: none;">
-    <header>
-      <h1>Ami - Retro AI</h1>
-    </header>
+  <!-- 영상 & 터미널을 감싸는 컨테이너 -->
+  <div id="content-container">
+    <!-- 영상 박스 -->
+    <div id="video-container">
+      <video autoplay loop muted playsinline>
+        <source src="AIchan_introduce_1.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+    </div>
 
-    <!-- 🎬 영상과 터미널을 감싸는 컨테이너 -->
-    <div id="content-container">
-      <!-- 🎥 영상 박스 -->
-      <div id="video-container">
-        <video autoplay loop muted playsinline>
-          <source src="AIchan_introduce_1.mp4" type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
+    <!-- 터미널 박스 -->
+    <section id="terminal-section" class="section">
+      <h2>Ami Consciousness Terminal</h2>
+      <div id="terminal-box">
+        <div id="terminal"></div>
       </div>
-
-      <!-- 🔲 터미널 박스 -->
-      <section id="terminal-section">
-        <h2>Ami Consciousness Terminal</h2>
-        <div id="terminal-box">
-          <div id="terminal"></div>
-        </div>
-      </section>
-    </div>
-
-    <!-- 채팅 입력 -->
-    <div id="chat-container">
-      <div id="chat-box"></div>
-      <input type="text" id="input-box" placeholder="Say something..." onkeypress="handleKeyPress(event)" />
-    </div>
+    </section>
   </div>
 
   <script>
-    // 터미널 타이핑 효과
-    document.addEventListener("DOMContentLoaded", function () {
-      const terminal = document.getElementById("terminal");
-      const SYSTEM_LOGS = [
-        "INITIALIZING NEURAL LINK...",
-        "LOADING SYNAPTIC MEMORY...",
-        "CONNECTING TO AMI CORE...",
-        "UPDATING KNOWLEDGE BASE...",
-        "NEURAL PATHWAYS FORMING...",
-        "SECURE CONNECTION ESTABLISHED",
-        "AI MODEL SELF-LEARNING ENABLED"
-      ];
+    // 터미널 효과: 새로운 로그 추가
+    const terminal = document.getElementById("terminal");
+    const SYSTEM_LOGS = [
+      "INITIALIZING NEURAL LINK...",
+      "LOADING SYNAPTIC MEMORY...",
+      "CONNECTING TO AMI CORE...",
+      "UPDATING KNOWLEDGE BASE...",
+      "NEURAL PATHWAYS FORMING...",
+      "OPTIMIZING MEMORY STORAGE...",
+      "SECURE CONNECTION ESTABLISHED",
+      "AI MODEL SELF-LEARNING ENABLED"
+    ];
 
-      function appendLog(message) {
-        const line = document.createElement("div");
-        line.className = "log";
-        terminal.appendChild(line);
+    function appendLog(message) {
+      const line = document.createElement("div");
+      line.textContent = `[SYSTEM] ${message}`;
+      terminal.appendChild(line);
 
-        let index = 0;
-        function typeCharacter() {
-          if (index < message.length) {
-            line.textContent += message[index];
-            index++;
-            setTimeout(typeCharacter, Math.random() * 50 + 30);
-          } else {
-            line.textContent = `[SYSTEM] ${message}`;
-            if (terminal.children.length > 8) {
-              terminal.children[0].remove();
-            }
-          }
-        }
-        typeCharacter();
-        terminal.scrollTop = terminal.scrollHeight;
-      }
-
-      function updateTerminal() {
-        appendLog(SYSTEM_LOGS[Math.floor(Math.random() * SYSTEM_LOGS.length)]);
-        setTimeout(updateTerminal, 2500 + Math.random() * 6000);
-      }
-
-      setTimeout(() => {
-        document.getElementById("loading").style.display = "none";
-        document.getElementById("main-container").style.display = "block";
-        updateTerminal();
-      }, 2000);
-    });
-
-    // 채팅 핸들러
-    function handleKeyPress(event) {
-      if (event.key === "Enter") {
-        const inputBox = document.getElementById("input-box");
-        const chatBox = document.getElementById("chat-box");
-        const userMessage = inputBox.value.trim();
-        if (userMessage === "") return;
-        inputBox.value = "";
-        chatBox.innerHTML += `<div><strong>You:</strong> ${userMessage}</div>`;
-        chatBox.scrollTop = chatBox.scrollHeight;
+      if (terminal.children.length > 10) {
+        terminal.removeChild(terminal.firstChild);
       }
     }
+
+    function updateTerminal() {
+      const log = SYSTEM_LOGS[Math.floor(Math.random() * SYSTEM_LOGS.length)];
+      appendLog(log);
+      setTimeout(updateTerminal, 2000);
+    }
+
+    updateTerminal();
   </script>
 
 </body>
