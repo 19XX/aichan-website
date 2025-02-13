@@ -209,19 +209,30 @@
       Terminal Box Styling
     –––––––––––––––––––––––––––––––––––––––––––––––*/
     #terminal-box {
-      width: 80%;
-      max-width: 600px;
-      height: 250px; /* Fixed height */
-      border: 2px solid var(--primary-color);
-      padding: 15px; /* Increased padding */
-      margin: 1rem auto;
-      overflow: hidden; /* Hide overflowing text */
-      white-space: pre-wrap; /* Preserve whitespace */
-      background-color: var(--background-color);
-      color: var(--primary-color);
-      font-size: 0.9em; /* Adjust font size */
-      position: relative;
-    }
+  width: 80%;
+  max-width: 600px;
+  height: 250px; /* Fixed height */
+  border: 2px solid var(--primary-color);
+  padding: 15px; /* Increased padding */
+  margin: 1rem auto;
+  overflow-y: auto; /* Allow vertical scrolling */
+  white-space: pre-wrap; /* Preserve whitespace */
+  background-color: var(--background-color);
+  color: var(--primary-color);
+  font-size: 0.9em; /* Adjust font size */
+  position: relative;
+}
+
+/* Retro scrollbar styling */
+#terminal-box::-webkit-scrollbar {
+  width: 6px;
+}
+#terminal-box::-webkit-scrollbar-track {
+  background: var(--background-color);
+}
+#terminal-box::-webkit-scrollbar-thumb {
+  background: var(--primary-color);
+}
 
     /*––––––––––––––––––––––––––––––––––––––––––––––
       Fade-In Animation
