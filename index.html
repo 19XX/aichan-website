@@ -326,14 +326,7 @@
       </nav>
     </header>
     
-   <main>
-  <!-- 터미널 -->
-  <section id="terminal-section" class="section">
-    <h2>Ami Consciousness Terminal</h2>
-    <div id="terminal-box">
-      <div id="terminal"></div>
-    </div>
-  </section>
+    <main>
       <!-- Primary Content: Video and Centered Quote -->
       <div id="content" class="fade-in">
         <div id="video-container">
@@ -342,7 +335,7 @@
             Your browser does not support the video tag.
           </video>
         </div>
-        <p style="text-align: center;">"Ami is a self-evolving AI, shaped by your input, constantly learning and adapting in real time."</p>
+        <p style="text-align: center;">"Are you sure this world is the real one? Maybe it’s time to decide—red pill or blue pill?”</p>
       </div>
       
       <!-- Chat Section -->
@@ -514,12 +507,12 @@
         const userMessage = inputBox.value.trim();
         if (userMessage === "") return;
         inputBox.value = "";
-        chatBox.innerHTML += <div style="padding: 5px; margin-bottom: 5px;"><strong>You:</strong> ${userMessage}</div>;
-        chatBox.innerHTML += <div id="loading-indicator" style="padding: 5px; margin-bottom: 5px;"><strong>Ami:</strong> Thinking...</div>;
+        chatBox.innerHTML += `<div style="padding: 5px; margin-bottom: 5px;"><strong>You:</strong> ${userMessage}</div>`;
+        chatBox.innerHTML += `<div id="loading-indicator" style="padding: 5px; margin-bottom: 5px;"><strong>Ami:</strong> Thinking...</div>`;
         chatBox.scrollTop = chatBox.scrollHeight;
         const reply = await fetchChatResponse(userMessage);
         document.getElementById("loading-indicator").remove();
-        chatBox.innerHTML += <div style="padding: 5px; margin-bottom: 5px;"><strong>Ami:</strong> ${reply}</div>;
+        chatBox.innerHTML += `<div style="padding: 5px; margin-bottom: 5px;"><strong>Ami:</strong> ${reply}</div>`;
         chatBox.scrollTop = chatBox.scrollHeight;
       }
     }
@@ -565,8 +558,6 @@
         }
       });
     });
-    
   </script>
- <script src="terminal.js"></script> 
 </body>
 </html>
