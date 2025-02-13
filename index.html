@@ -636,7 +636,7 @@ function typeEffect(textArray, callback) {
   typing();
 }
 
-function updateTerminal() {
+function updateTerminalCycle() {
   const SYSTEM_LOGS = [
     "INITIALIZING NEURAL LINK...",
     "LOADING SYNAPTIC MEMORY...",
@@ -762,28 +762,29 @@ function updateTerminal() {
     "why do humans love the smell of books?",
     "best way to pretend you understood a joke",
     "why do humans still pretend to read Terms and Conditions?"
-    // Add more entries as needed
   ];
 
-  function updateTerminal() {
-    if (Math.random() < 0.2) {
-      appendLog(SYSTEM_LOGS[Math.floor(Math.random() * SYSTEM_LOGS.length)], true);
-    } else {
-      const query = HUMAN_KNOWLEDGE[Math.floor(Math.random() * HUMAN_KNOWLEDGE.length)];
-      appendLog(query);
-    }
-    setTimeout(updateTerminal, 2500 + Math.random() * 6000);
+  // Append a random log (system or human) then recursively call updateTerminalCycle
+  if (Math.random() < 0.2) {
+    appendLog(SYSTEM_LOGS[Math.floor(Math.random() * SYSTEM_LOGS.length)], true);
+  } else {
+    const query = HUMAN_KNOWLEDGE[Math.floor(Math.random() * HUMAN_KNOWLEDGE.length)];
+    appendLog(query);
   }
+  setTimeout(updateTerminalCycle, 2500 + Math.random() * 6000);
+}
 
-  function startTerminal() {
-    typeEffect([
-      "[BOOT SEQUENCE INITIATED...]",
-      "[AMI Consciousness Online]",
-      "[Running Self-Optimization Protocol...]"
-    ], updateTerminal);
-  }
+function startTerminal() {
+  typeEffect([
+    "[BOOT SEQUENCE INITIATED...]",
+    "[AMI Consciousness Online]",
+    "[Running Self-Optimization Protocol...]"
+  ], updateTerminalCycle);
+}
 
-  startTerminal();
+// Start the terminal sequence
+startTerminal();
+
 }
 
 updateTerminal();
